@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.paper.min.css">
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">Brand</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="navbar-section" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-section">
+        <div class="navbar-right">
+          <a type="button" href="login.html" class="btn btn-primary navbar-btn">Log in</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="signup.html">Sign up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search services -->
+  <div class="container">
+    <form action="search" class="form-inline" method="GET">
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" class="form-control input-lg" placeholder="What service do you need?" autocomplete="off" required>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" pattern="[0-9]*" class="form-control input-lg" placeholder="Zip code" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Find service</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
