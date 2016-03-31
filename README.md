@@ -1,1 +1,1 @@
-edit the README
+run npm install
