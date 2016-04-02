@@ -1,4 +1,4 @@
-angular.module('app.routes', ['ngRoute'])
+angular.module('routes', ['ngRoute'])
 
 .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
   $routeProvider
@@ -10,6 +10,15 @@ angular.module('app.routes', ['ngRoute'])
     })
     .when('/signup', {
       templateUrl: 'app/views/pages/signup.html'
+    })
+    .when('/profile', {
+      templateUrl: 'app/views/pages/user_profile.html'
+    })
+    .when('/dashboard', {
+      templateUrl: 'app/views/pages/dashboard.html'
+    })
+    .when('/bidding', {
+      templateUrl: 'app/views/pages/bidding.html'
     });
 
   $locationProvider.html5Mode(true);
