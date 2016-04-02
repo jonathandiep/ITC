@@ -1,5 +1,5 @@
 angular.module('app', [
-  'app.routes'
+  'routes'
 ]);
 
 
