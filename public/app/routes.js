@@ -19,6 +19,9 @@ angular.module('routes', ['ngRoute'])
     })
     .when('/bidding', {
       templateUrl: 'app/views/pages/bidding.html'
+    })
+    .when('/client/review', {
+      templateUrl: 'app/views/pages/client_review.html'
     });
 
   $locationProvider.html5Mode(true);
