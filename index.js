@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var path = require('path');
 var port = process.env.PORT || 5000;
 
 // use body parser to gram information from POST requests
@@ -18,15 +19,16 @@ app.use((req, res, next) => {
   next();
 });
 
+// log requests to console
 app.use(morgan('dev'));
 
-app.use(express.static(__dirname + '/public'));
+// set static files location - used for requests our frontend will make
+app.use(express.static(`${__dirname}/public`));
 
-app.get('/', (req, res) => {
-  res.send('need to send homepage here');
+// catchall route (send users to Angular frontend)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(`${__dirname}/public/views/index.html`));
 });
 
-app.get('/*', (req, res) => {
-  res.send('asdf');
-  // res.sendFile(`${__dirname}/public/index.html`);
-})
+app.listen(port);
+console.log(`Working on port ${port}`);
