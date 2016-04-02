@@ -1,0 +1,13 @@
+body {
+  background-color: #f6f6f6;
+}
+
+#signup-form {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+#login-form {
+  max-width: 360px;
+  margin: 0 auto;
+}
