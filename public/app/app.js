@@ -1,6 +1,14 @@
 angular.module('app', [
-  'routes'
-]);
+  'routes',
+  'authService',
+  'userService',
+  'sessionCtrl',
+  'userCtrl'
+])
 
+// application config to integrate token into requests
+.config(function($httpProvider) {
 
-// angular 1.5.3
+  // attach authInterceptor to HTTP requests
+  $httpProvider.interceptors.push('AuthInterceptor');
+});

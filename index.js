@@ -23,8 +23,15 @@ app.use((req, res, next) => {
 // log requests to console
 app.use(morgan('dev'));
 
+// connect to database
+mongoose.connect(config.database);
+
 // set static files location - used for requests our frontend will make
 app.use(express.static(`${__dirname}/public`));
+
+// API routes
+var apiRoutes = require('./app/routes/api')(app, express);
+app.use('/api', apiRoutes);
 
 // catchall route (send users to Angular frontend)
 app.get('*', (req, res) => {

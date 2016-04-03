@@ -1,5 +1,5 @@
 <div class="container">
-  <form id="signup-form" method="POST">
+  <form id="signup-form" ng-submit="user.saveUser()">
     <div class="panel panel-default">
       <div class="panel-body">
         <!-- First name -->
@@ -7,38 +7,38 @@
           <label for="first_name" class="control-label">
             <strong>First name</strong>
           </label>
-          <input type="text" class="form-control input-lg" required>
+          <input type="text" class="form-control input-lg" ng-model="user.userData.firstName" required>
         </div>
         <!-- Last name -->
         <div class="form-group">
           <label for="last_name" class="control-label">
             <strong>Last name</strong>
           </label>
-          <input type="text" class="form-control input-lg" required>
+          <input type="text" class="form-control input-lg" ng-model="user.userData.lastName" required>
         </div>
         <!-- Email address -->
         <div class="form-group">
           <label for="email" class="control-label">
             <strong>Email address</strong>
           </label>
-          <input type="email" class="form-control input-lg" required>
+          <input type="email" class="form-control input-lg" ng-model="user.userData.email" required>
         </div>
         <!-- Password -->
         <div class="form-group">
           <label for="password" class="control-label">
             <strong>Password</strong>
           </label>
-          <input type="password" class="form-control input-lg" required>
+          <input type="password" class="form-control input-lg" ng-model="user.userData.password" required>
         </div>
         <!-- Confirm password -->
         <div class="form-group">
           <label for="confirm_password" class="control-label">
             <strong>Confirm password</strong>
           </label>
-          <input type="password" class="form-control input-lg" required>
+          <input type="password" class="form-control input-lg">
         </div>
         <!-- Sign up button -->
-        <button type="submit" class="btn btn-disabled btn-block disabled" disabled>Sign up</button>
+        <button type="submit" class="btn btn-disabled btn-block">Sign up</button>
       </div><!-- /panel-body -->
     </div>
   </form>
