@@ -19,7 +19,7 @@ module.exports = function(app, express) {
     user.save((err) => {
       if (err) {
         if (err.code == 11000) {
-          return res.json({ success: false, message: 'User already exists.' });
+          return res.json({ success: false, message: 'Account already created with that email.' });
         } else {
           return res.send(err);
         }
@@ -35,7 +35,7 @@ module.exports = function(app, express) {
     // find user, select first and last name, email, and pass explicitly
     User.findOne({
       email: req.body.email
-    }).select('firstName lastName email password').exec((err, user) => {
+    }).select('_id firstName lastName email password').exec((err, user) => {
       if (err) throw err;
 
       if (!user) {
@@ -56,6 +56,7 @@ module.exports = function(app, express) {
 
           // create token
           var token = jwt.sign({
+            id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email

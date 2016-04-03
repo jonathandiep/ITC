@@ -19,10 +19,10 @@
   <script src="../../assets/lib/angular-route.js"></script>
   <script src="../../assets/lib/angular-animate.js"></script>
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-controller="sessionController as sess">
   <!-- Navigation bar -->
   <nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+    <div class="container" ng-if="!sess.loggedIn">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">Brand</a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="navbar-section" aria-expanded="false">
@@ -41,7 +41,29 @@
         </ul>
       </div>
     </div>
+    <div class="container-fluid" ng-if="sess.loggedIn">
+      <div class="navbar-header">
+        <button type="button" class="btn btn-default btn-lg navbar-btn">
+          <i class="glyphicon glyphicon-menu-hamburger"></i>
+        </button>
+      </div>
+      <div id="navbar-section" class="pull-right">
+        <button type="button" class="btn btn-default btn-lg navbar-btn">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-lg navbar-btn">
+          <i class="glyphicon glyphicon-envelope"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-lg navbar-btn">
+          <i class="glyphicon glyphicon-bell"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-lg navbar-btn">
+          <i class="glyphicon glyphicon-option-vertical"></i>
+        </button>
+      </div>
+    </div>
   </nav>
+
 
   <main class="container">
     <div ng-view></div>
@@ -61,6 +83,10 @@
   <script src="../../assets/lib/bootstrap.min.js"></script>
 
   <!-- Angular scripts -->
+  <script src="app/controllers/sessionCtrl.js"></script>
+  <script src="app/controllers/userCtrl.js"></script>
+  <script src="app/services/authService.js"></script>
+  <script src="app/services/userService.js"></script>
   <script src="app/routes.js"></script>
   <script src="app/app.js"></script>
 
