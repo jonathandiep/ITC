@@ -1,8 +1,16 @@
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
+var mysql = require('mysql');
 var config = require('../../config');
 
 var secret = config.secret;
+
+var pool = mysql.createPool({
+  host: config.host,
+  user: config.user,
+  password: config.password,
+  database: config.mysqldb
+});
 
 module.exports = function(app, express) {
 
@@ -26,7 +34,26 @@ module.exports = function(app, express) {
       }
 
       res.json({ message: 'User created!' });
+
+      // get _id from MongoDB and create user in MySQL
+      User.findOne({
+        email: req.body.email
+      }).select('_id').exec((err, user) => {
+        if (err) throw err;
+
+        // create user in MySQL
+        pool.getConnection(function(err, connection) {
+          var post = {idUser: user._id};
+          connection.query('INSERT INTO User SET ?', post, function(err, result) {
+            if (err) throw err;
+            connection.release();
+          });
+        });
+        
+      });
+
     });
+
   });
 
   // route to authenticate users

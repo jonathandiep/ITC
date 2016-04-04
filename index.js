@@ -31,8 +31,9 @@ app.use((req, res, next) => {
 // log requests to console
 app.use(morgan('dev'));
 
-// connect to database
+// connect to databases
 mongoose.connect(config.mongodb);
+connection.connect();
 
 // set static files location - used for requests our frontend will make
 app.use(express.static(`${__dirname}/public`));

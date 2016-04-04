@@ -3,7 +3,7 @@ module.exports = {
   'mongodb': 'mongodb://localhost/userDB',
   'secret': 'thisIsOurSecretdWhichHashesOurPasswords',
   'host': 'localhost',
-  'user': 'username',
-  'password': 'password',
-  'mysqldb': 'databaseName'
+  'user': 'root',
+  'password': 'sesame',
+  'mysqldb': 'ITC'
 };
