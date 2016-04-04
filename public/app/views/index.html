@@ -60,6 +60,9 @@
         <button type="button" class="btn btn-default btn-lg navbar-btn">
           {{sess.user.firstName + ' ' + sess.user.lastName}} <i class="glyphicon glyphicon-option-vertical"></i>
         </button>
+        <button type="button" class="btn btn-default btn-lg navbar-btn" ng-click="sess.doLogout()">
+          Logout
+        </button>
       </div>
     </div>
   </nav>

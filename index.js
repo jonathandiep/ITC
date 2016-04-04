@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
   host: config.host,
   user: config.user,
   password: config.password,
-  database: config.database
+  database: config.mysqldb
 });
 
 // use body parser to gram information from POST requests
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 app.use(morgan('dev'));
 
 // connect to database
-mongoose.connect(config.database);
+mongoose.connect(config.mongodb);
 
 // set static files location - used for requests our frontend will make
 app.use(express.static(`${__dirname}/public`));
