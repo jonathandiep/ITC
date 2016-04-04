@@ -3,13 +3,24 @@
   <h3>Service Requests</h3>
   <br>
   <div class="row">
-    <div class="col-xs-12 col-sm-8">
+    <!-- Service request template -->
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <div class="panel panel-default">
         <!-- Name/Heading -->
-        <div class="panel-heading">
-          <strong>Name (Heading)</strong>
+        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
+          <strong>Name/Heading</strong>
+          <span class="pull-right">
+            <button type="button" class="btn btn-success btn-sm">Update</button>
+            <button type="button" class="btn btn-danger btn-sm">Archive</button>
+          </span>
         </div>
         <div class="panel-body">
+          </ul>
+          <!-- Posting date -->
+          <label for="posting_date">
+            <strong>Posting Date</strong>
+          </label>
+          <p>01/01/2016</p>
           <!-- Description -->
           <label for="description">
             <strong>Description</strong>
@@ -21,24 +32,46 @@
           <label for="status">
             <strong>Status</strong>
           </label>
+          <p>Open</p>
           <hr>
           <!-- Available service providers -->
-          <p><strong>Available providers</strong></p>
-          <ul class="list-unstyled list-inline list-group">
-            <li class="list-group-item"></li>
-            <li>
-              <strong>John Doe</strong>
-            </li>
-            <li class="pull-right">
+          <p>
+            <strong>Available offers</strong>
+          </p>
+          <!-- Sample service provider -->
+          <div class="media">
+            <div class="media-left media-middle">
+              <a href="#">
+                <img src="http://placehold.it/64x64" alt="Provider's profile picture" class="media-object">
+              </a>
+            </div>
+            <div class="media-body">
+              <p class="media-heading">
+                <strong>John Doe</strong>
+              </p>
+              <!-- <button type="button" class="btn btn-sm btn-info">Profile</button> -->
+              <a href="#" class="btn btn-sm btn-primary">View</a>
+              <a href="#" class="btn btn-sm btn-success">Accept</a>
               <button class="btn btn-sm btn-danger">Decline</button>
-            </li>
-            <li class="pull-right">
-              <a href="#" class="btn btn-sm btn-success">Reply</a>
-            </li>
-            <li class="pull-right">
-              <a href="#" class="btn btn-sm btn-primary">View profile</a>
-            </li>
-          </ul>
+            </div>
+          </div>
+          <!-- Another sample service provider -->
+          <div class="media">
+            <div class="media-left media-middle">
+              <a href="#">
+                <img src="http://placehold.it/64x64" alt="Provider's profile picture" class="media-object">
+              </a>
+            </div>
+            <div class="media-body">
+              <p class="media-heading">
+                <strong>Morgan Freeman</strong>
+              </p>
+              <!-- <button type="button" class="btn btn-sm btn-info">Profile</button> -->
+              <a href="#" class="btn btn-sm btn-primary">View</a>
+              <a href="#" class="btn btn-sm btn-success">Accept</a>
+              <button type="button" class="btn btn-sm btn-danger">Decline</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
