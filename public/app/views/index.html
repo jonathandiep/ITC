@@ -21,7 +21,7 @@
 </head>
 <body ng-app="app" ng-controller="sessionController as sess">
   <!-- Navigation bar -->
-  <nav class="navbar navbar-default navbar-static-top">
+  <nav class="navbar navbar-static-top" ng-class="{'navbar-inverse': sess.loggedIn, 'navbar-default': !sess.loggedIn}">
     <div class="container" ng-if="!sess.loggedIn">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">Brand</a>
