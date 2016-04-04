@@ -49,7 +49,7 @@ module.exports = function(app, express) {
             connection.release();
           });
         });
-        
+
       });
 
     });
@@ -134,9 +134,9 @@ module.exports = function(app, express) {
 
   // API for requests
   // DB table: requests
-  //   GET      /requests => get all requests from user's id (get user_id from params)
+  //  *GET      /requests => get all requests from user's id (get user_id from params)
   //   POST     /requests => submit/add request (get user_id from params)
-  //   GET      /requests/:request_id => get info about a request
+  //  *GET      /requests/:request_id => get info about a request
   //   PUT      /requests/:request_id => edit a request
   //   DELETE   /requests/:request_id => delete a request
 
@@ -151,12 +151,13 @@ module.exports = function(app, express) {
 
   // API for reviews
   // DB table: reviews
-  //   GET      /reviews => get all reviews from user's id
+  //  *GET      /reviews => get all reviews from user's id
   //   POST     /reviews => post review (use req.params)
-  //   GET      /reviews/:review_id => get info about a review
+  //  *GET      /reviews/:review_id => get info about a review
   //   PUT      /reviews/:review_id => edit a review
   //   DELETE   /reviews/:review_id => delete a review
 
+  // * => publicly accessible
 
   api.get('/me', (req, res) => {
     res.send(req.decoded);
