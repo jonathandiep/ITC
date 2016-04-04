@@ -26,6 +26,9 @@ angular.module('routes', ['ngRoute'])
     })
     .when('/client/review', {
       templateUrl: 'app/views/pages/client_review.html'
+    })
+    .when('/request/id/update', {
+      templateUrl: 'app/views/pages/request_update.html'
     });
 
   $locationProvider.html5Mode(true);
