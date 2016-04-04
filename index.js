@@ -5,8 +5,16 @@ var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var mysql = require('mysql');
 var path = require('path');
 var config = require('./config');
+
+var connection = mysql.createConnection({
+  host: config.host,
+  user: config.user,
+  password: config.password,
+  database: config.database
+});
 
 // use body parser to gram information from POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
