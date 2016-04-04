@@ -133,15 +133,36 @@ module.exports = function(app, express) {
   });
 
   // API for requests
-  // DB table: requests
+  // DB table: ServiceRequest
   //  *GET      /requests => get all requests from user's id (get user_id from params)
-  //   POST     /requests => submit/add request (get user_id from params)
   //  *GET      /requests/:request_id => get info about a request
+  //   POST     /requests => submit/add request (get user_id from params)
   //   PUT      /requests/:request_id => edit a request
   //   DELETE   /requests/:request_id => delete a request
 
+  api.route('/requests')
+    .post((req, res) => {
+      var clientID = req.body.clientID;
+      var serviceTitle = req.body.serviceTitle;
+      var description = req.body.description;
+      var status = 'Open';
+
+      pool.getConnection(function(err, connection) {
+        var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status};
+        connection.query('INSERT INTO ServiceRequest SET ?', post, function(err, result) {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'Request submitted.'
+          })
+        });
+      });
+
+    });
+
   // API for bids/quotes
-  // DB table: bids
+  // DB table: Bid
   //   GET      /bids => get all bids from provider (user_id)
   //   POST     /bids => submit a bid
   //   GET      /bids/:bid_id => get info about a bid
@@ -150,10 +171,10 @@ module.exports = function(app, express) {
 
 
   // API for reviews
-  // DB table: reviews
+  // DB table: Review
   //  *GET      /reviews => get all reviews from user's id
-  //   POST     /reviews => post review (use req.params)
   //  *GET      /reviews/:review_id => get info about a review
+  //   POST     /reviews => post review (use req.params)
   //   PUT      /reviews/:review_id => edit a review
   //   DELETE   /reviews/:review_id => delete a review
 
