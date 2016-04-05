@@ -42,9 +42,9 @@ module.exports = function(app, express) {
         if (err) throw err;
 
         // create user in MySQL
-        pool.getConnection(function(err, connection) {
+        pool.getConnection((err, connection) => {
           var post = {idUser: user._id};
-          connection.query('INSERT INTO User SET ?', post, function(err, result) {
+          connection.query("INSERT INTO User SET ?", post, (err, result) => {
             if (err) throw err;
             connection.release();
           });
@@ -54,6 +54,33 @@ module.exports = function(app, express) {
 
     });
 
+  });
+
+  //  *GET      /requests?q=searchquery => get all requests (search params here)
+  //  *GET      /requests/:request_id => get info about a request
+  //  *GET      /requests/user/:user_id => get all requests from user's id
+  api.get('/requests', (req, res) => {
+    if (req.query.q) {
+      pool.getConnection((err, connection) => {
+        var searchQuery = '%' + req.query.q + '%';
+        var sqlQuery = "SELECT * FROM ServiceRequest WHERE serviceTitle LIKE ? OR description LIKE ?"
+        connection.query(sqlQuery, [searchQuery, searchQuery], (err, results) => {
+          if (err) throw err;
+          connection.release();
+          console.log(results);
+          res.send(results);
+        });
+      });
+    } else {
+      pool.getConnection((err, connection) => {
+        connection.query('SELECT * FROM ServiceRequest', (err, results) => {
+          if (err) throw err;
+          connection.release();
+          console.log(results);
+          res.send(results);
+        })
+      })
+    }
   });
 
   // route to authenticate users
@@ -134,9 +161,10 @@ module.exports = function(app, express) {
 
   // API for requests
   // DB table: ServiceRequest
-  //  *GET      /requests => get all requests from user's id (get user_id from params)
+  //  *GET      /requests?q=searchquery => get all requests (search params here)
   //  *GET      /requests/:request_id => get info about a request
-  //   POST     /requests => submit/add request (get user_id from params)
+  //  *GET      /requests/user/:user_id => get all requests from user's id
+  //  -POST     /requests => submit/add request (get user_id from params)
   //   PUT      /requests/:request_id => edit a request
   //   DELETE   /requests/:request_id => delete a request
 
@@ -147,9 +175,9 @@ module.exports = function(app, express) {
       var description = req.body.description;
       var status = 'Open';
 
-      pool.getConnection(function(err, connection) {
+      pool.getConnection((err, connection) => {
         var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status};
-        connection.query('INSERT INTO ServiceRequest SET ?', post, function(err, result) {
+        connection.query("INSERT INTO ServiceRequest SET ?", post, (err, result) => {
           if (err) throw err;
           connection.release();
           res.json({
@@ -159,6 +187,15 @@ module.exports = function(app, express) {
         });
       });
 
+    })
+
+    .put((req, res) => {
+      // needs to get idServiceRequest to edit
+      var id = req.body.idServiceRequest;
+      var clientID = req.body.clientID;
+      var serviceTitle = req.body.serviceTitle;
+      var description = req.body.description;
+      var status = req.body.status;
     });
 
   // API for bids/quotes
