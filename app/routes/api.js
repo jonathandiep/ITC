@@ -63,11 +63,10 @@ module.exports = function(app, express) {
     if (req.query.q) {
       pool.getConnection((err, connection) => {
         var searchQuery = '%' + req.query.q + '%';
-        var sqlQuery = "SELECT * FROM ServiceRequest WHERE serviceTitle LIKE ? OR description LIKE ?"
+        var sqlQuery = "SELECT * FROM ServiceRequest WHERE serviceTitle LIKE ? OR description LIKE ?";
         connection.query(sqlQuery, [searchQuery, searchQuery], (err, results) => {
           if (err) throw err;
           connection.release();
-          console.log(results);
           res.send(results);
         });
       });
@@ -76,11 +75,23 @@ module.exports = function(app, express) {
         connection.query('SELECT * FROM ServiceRequest', (err, results) => {
           if (err) throw err;
           connection.release();
-          console.log(results);
           res.send(results);
         })
       })
     }
+  });
+
+  api.get('/requests/:request_id', (req, res) => {
+    pool.getConnection((err, connection) => {
+      var requestID = req.params.request_id;
+      var sqlQuery = "SELECT * FROM ServiceRequest WHERE idServiceRequest = ?";
+      connection.query(sqlQuery, [requestID], (err, results) => {
+        if (err) throw err;
+        connection.release();
+        if (typeof results[0] === 'undefined') res.send('Error. Request not found :(');
+        res.send(results[0])
+      });
+    });
   });
 
   // route to authenticate users
