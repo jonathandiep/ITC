@@ -192,6 +192,7 @@ module.exports = function(app, express) {
   //   PUT      /requests/:request_id => edit a request
   //   DELETE   /requests/:request_id => delete a request
 
+  // POST /requests => submit/add request (get user_id from params)
   api.post('/requests', (req, res) => {
     var clientID = req.body.clientID;
     var serviceTitle = req.body.serviceTitle;
@@ -213,6 +214,8 @@ module.exports = function(app, express) {
   });
 
   api.route('/requests/:request_id')
+
+    // PUT /requests/:request_id => edit a request
     .put((req, res) => {
       // needs to get idServiceRequest to edit
       var id = req.params.request_id;
@@ -232,6 +235,7 @@ module.exports = function(app, express) {
       });
     })
 
+    // DELETE /requests/:request_id => delete a request
     .delete((req, res) => {
       var id = req.params.request_id;
       pool.getConnection((err, connection) => {
