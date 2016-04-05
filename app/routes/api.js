@@ -185,41 +185,66 @@ module.exports = function(app, express) {
 
   // API for requests
   // DB table: ServiceRequest
-  //  *GET      /requests?q=searchquery => get all requests (search params here)
-  //  *GET      /requests/:request_id => get info about a request
-  //  *GET      /requests/user/:user_id => get all requests from user's id
+  //  -GET      /requests?q=searchquery => get all requests (search params here)
+  //  -GET      /requests/:request_id => get info about a request
+  //  -GET      /requests/user/:user_id => get all requests from user's id
   //  -POST     /requests => submit/add request (get user_id from params)
   //   PUT      /requests/:request_id => edit a request
   //   DELETE   /requests/:request_id => delete a request
 
-  api.route('/requests')
-    .post((req, res) => {
-      var clientID = req.body.clientID;
+  api.post('/requests', (req, res) => {
+    var clientID = req.body.clientID;
+    var serviceTitle = req.body.serviceTitle;
+    var description = req.body.description;
+    var status = 'Open';
+
+    pool.getConnection((err, connection) => {
+      var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status};
+      connection.query("INSERT INTO ServiceRequest SET ?", post, (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.json({
+          success: true,
+          message: 'Request submitted.'
+        });
+      });
+    });
+
+  });
+
+  api.route('/requests/:request_id')
+    .put((req, res) => {
+      // needs to get idServiceRequest to edit
+      var id = req.params.request_id;
       var serviceTitle = req.body.serviceTitle;
       var description = req.body.description;
-      var status = 'Open';
-
+      var status = req.body.status;
       pool.getConnection((err, connection) => {
-        var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status};
-        connection.query("INSERT INTO ServiceRequest SET ?", post, (err, result) => {
+        var sqlQuery = "UPDATE ServiceRequest SET serviceTitle = ?, description = ?, status = ? WHERE idServiceRequest = ?";
+        connection.query(sqlQuery, [serviceTitle, description, status, id], (err, result) => {
           if (err) throw err;
           connection.release();
           res.json({
             success: true,
-            message: 'Request submitted.'
-          })
+            message: 'Request updated.'
+          });
         });
       });
-
     })
 
-    .put((req, res) => {
-      // needs to get idServiceRequest to edit
-      var id = req.body.idServiceRequest;
-      var clientID = req.body.clientID;
-      var serviceTitle = req.body.serviceTitle;
-      var description = req.body.description;
-      var status = req.body.status;
+    .delete((req, res) => {
+      var id = req.params.request_id;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "DELETE FROM ServiceRequest WHERE idServiceRequest = ?";
+        connection.query(sqlQuery, [id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'Request deleted.'
+          });
+        });
+      });
     });
 
   // API for bids/quotes
