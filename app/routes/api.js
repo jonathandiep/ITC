@@ -56,9 +56,8 @@ module.exports = function(app, express) {
 
   });
 
-  //  *GET      /requests?q=searchquery => get all requests (search params here)
-  //  *GET      /requests/:request_id => get info about a request
-  //  *GET      /requests/user/:user_id => get all requests from user's id
+
+  // GET /requests?q=searchquery => get all requests (search params here)
   api.get('/requests', (req, res) => {
     if (req.query.q) {
       pool.getConnection((err, connection) => {
@@ -81,6 +80,7 @@ module.exports = function(app, express) {
     }
   });
 
+  // GET /requests/:request_id => get info about a request
   api.get('/requests/:request_id', (req, res) => {
     pool.getConnection((err, connection) => {
       var requestID = req.params.request_id;
@@ -93,6 +93,19 @@ module.exports = function(app, express) {
       });
     });
   });
+
+  // GET /requests/user/:user_id => get all requests from user's id
+  api.get('/requests/user/:user_id', (req, res) => {
+    pool.getConnection((err, connection) => {
+      var userID = req.params.user_id;
+      var sqlQuery = "SELECT * FROM ServiceRequest WHERE clientID = ?";
+      connection.query(sqlQuery, [userID], (err, results) => {
+        if (err) throw err;
+        connection.release();
+        res.send(results);
+      })
+    })
+  })
 
   // route to authenticate users
   api.post('/authenticate', (req, res) => {
