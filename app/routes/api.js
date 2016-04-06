@@ -286,7 +286,10 @@ module.exports = function(app, express) {
           });
         });
       } else {
-        res.send('Error. Need parameters.');
+        res.json({
+          success: false,
+          message: 'Error. Needs parameters.'
+        });
       }
     })
 
@@ -305,26 +308,62 @@ module.exports = function(app, express) {
           if (err) throw err;
           connection.release();
           console.log(result);
-          res.send('Bid confirmed.');
+          res.json({
+            success: true,
+            message: 'Bid posted.'
+          });
         });
       });
     });
 
-  /*
   api.route('/bids/:bid_id')
 
     .get((req, res) => {
-
+      var id = req.params.bid_id;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "SELECT * FROM Bid WHERE idBid = ?";
+        connection.query(sqlQuery, [id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          console.log(result[0]);
+          res.send(result[0]);
+        });
+      });
     })
 
     .put((req, res) => {
-
+      var id = req.params.bid_id;
+      var priceType = req.query.priceType;
+      var priceValue = req.query.priceValue;
+      var note = req.query.note;
+      var status = req.query.status;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "UPDATE Bid SET priceType = ?, priceValue = ?, note = ?, status = ? WHERE idBid = ?";
+        connection.query(sqlQuery, [priceType, priceValue, note, status, id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'Bid updated.'
+          });
+        });
+      });
     })
 
     .delete((req, res) => {
-
+      var id = req.params.bid_id;
+      pool.getConnection((err, connection) => {
+        connection.query("DELETE FROM Bid WHERE idBid = ?", [id], (err, results) => {
+          if (err) throw err;
+          connection.release();
+          console.log(results);
+          res.json({
+            success: true,
+            message: 'Bid deleted.'
+          });
+        });
+      });
     });
-  */
 
   // API for reviews
   // DB table: Review
