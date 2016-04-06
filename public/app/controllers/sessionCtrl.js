@@ -12,6 +12,7 @@ angular.module('sessionCtrl', [])
     Auth.getUser()
       .then(function(data) {
         vm.user = data.data;
+        $rootScope.user = data.data;
       });
   });
 

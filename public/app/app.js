@@ -1,7 +1,9 @@
 angular.module('app', [
   'routes',
   'authService',
+  'reqService',
   'userService',
+  'dashCtrl',
   'sessionCtrl',
   'userCtrl'
 ])

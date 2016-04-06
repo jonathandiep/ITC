@@ -242,9 +242,10 @@ module.exports = function(app, express) {
     var serviceTitle = req.body.serviceTitle;
     var description = req.body.description;
     var status = 'Open';
+    var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     pool.getConnection((err, connection) => {
-      var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status};
+      var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status, date: date};
       connection.query("INSERT INTO ServiceRequest SET ?", post, (err, result) => {
         if (err) throw err;
         connection.release();
@@ -294,6 +295,20 @@ module.exports = function(app, express) {
         });
       });
     });
+
+  api.get('/requests/count/:request_id', (req, res) => {
+    var id = req.params.request_id;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT COUNT(*) AS C FROM Bid WHERE serviceRequestID = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.json({
+          count: result[0]["C"]
+        });
+      });
+    });
+  });
 
   // API for bids/quotes
   // DB table: Bid

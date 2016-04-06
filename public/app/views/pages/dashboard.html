@@ -15,7 +15,7 @@
               <img src="http://placehold.it/96x96" alt="User's profile picture" class="media-object img-rounded">
             </div>
             <div class="media-body">
-              <h4 class="media-heading">John Doe</h4>
+              <h4 class="media-heading">{{sess.user.firstName + ' ' + sess.user.lastName}}</h4>
               <ul class="list-unstyled">
                 <li><strong>Email</strong>: johndoe@email.com</li>
                 <li><strong>Phone</strong>: (000) 000-0000</li>
@@ -61,21 +61,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Gardening</td>
-              <td>01/01/2016</td>
-              <td><span class="label label-success">Open</span></td>
-              <td class="text-center">0</td>
-              <td>
-                <a href="request/view" class="btn btn-primary btn-sm">View</a>
-                <button type="button" class="btn btn-danger btn-sm">Remove</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Tennis Lessons</td>
-              <td>01/02/2016</td>
-              <td><span class="label label-danger">Closed</span></td>
-              <td class="text-center">5</td>
+            <tr ng-repeat="service in dash.services">
+              <td>{{service.serviceTitle}}</td>
+              <td>{{service.date.substring(0,10)}}</td>
+              <td ng-if="service.status === 'Open'"><span class="label label-success">Open</span></td>
+              <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
+              <td class="text-center">{{dash.offers[$index]}}</td>
               <td>
                 <a href="request/view" class="btn btn-primary btn-sm">View</a>
                 <button type="button" class="btn btn-danger btn-sm">Remove</button>

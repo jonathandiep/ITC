@@ -17,7 +17,9 @@ angular.module('routes', ['ngRoute'])
       controllerAs: 'user'
     })
     .when('/dashboard', {
-      templateUrl: 'app/views/pages/dashboard.html'
+      templateUrl: 'app/views/pages/dashboard.html',
+      controller: 'dashboardController',
+      controllerAs: 'dash'
     })
     .when('/bidding', {
       templateUrl: 'app/views/pages/bidding.html'
