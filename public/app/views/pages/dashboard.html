@@ -44,85 +44,86 @@
     <!-- Service requests -->
     <div class="col-sm-12 col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
-          <strong>Service Requests</strong>
-          <a href="request/create" class="btn btn-default btn-sm pull-right">
-            <i class="glyphicon glyphicon-plus"></i> New service request
-          </a>
-        </div>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Posting Date</th>
-              <th>Status</th>
-              <th class="text-center"># of Offers</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="service in dash.services">
-              <td>{{service.serviceTitle}}</td>
-              <td>{{service.date.substring(0,10)}}</td>
-              <td ng-if="service.status === 'Open'"><span class="label label-success">Open</span></td>
-              <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
-              <td class="text-center">{{dash.offers[$index]}}</td>
-              <td>
-                <a href="request/view" class="btn btn-primary btn-sm">View</a>
-                <button type="button" class="btn btn-danger btn-sm">Remove</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- Service requests -->
+  <div id="service-requests-panel" class="panel panel-default">
+      <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
+        <strong>Service Requests</strong>
+        <a href="request/create" class="btn btn-default btn-sm pull-right">
+          <i class="glyphicon glyphicon-plus"></i> New service request
+        </a>
       </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Request Posted On</th>
+            <th>Status</th>
+            <th class="text-center"># of Offers</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="service in dash.services">
+            <td>{{service.serviceTitle}}</td>
+            <td>{{service.date.substring(0,10)}}</td>
+            <td ng-if="service.status === 'Open'"><span class="label label-success">Open</span></td>
+            <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
+            <td class="text-center">{{dash.offers[$index]}}</td>
+            <td>
+              <a href="request/view" class="btn btn-primary btn-sm">View</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <!-- Bidding history -->
+  <div id="service-requests-panel" class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Service Bids</strong>
     </div>
-    <!-- Service Bids -->
-    <div class="col-sm-12 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <strong>Service Bids</strong>
+    <div class="panel-body">
+      <form action="" class="form-inline">
+        <div class="form-group">
+          <input type="search" placeholder="Find more client requests" class="form-control">
         </div>
-        <div class="panel-body">
-          <form action="" class="form-inline">
-            <div class="form-group">
-              <input type="search" placeholder="Find more client requests" class="form-control">
-            </div>
-            <a href="#" class="btn btn-default btn-sm">
-              <i class="glyphicon glyphicon-search"></i>
-            </a>
-          </form>
-        </div>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Client</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Computer Programming</td>
-              <td><a href="profile/view">George Winston</a></td>
-              <td><span class="label label-success">Open</span></td>
-              <td>
-                <a href="#" class="btn btn-primary btn-sm">View</a>
-                <button type="button" class="btn btn-danger btn-sm">Remove</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Software Consulting</td>
-              <td><a href="/profile/view">Donald Yang</a></td>
-              <td><span class="label label-success">Open</span></td>
-              <td>
-                <a href="#" class="btn btn-primary btn-sm">View</a>
-                <button type="button" class="btn btn-danger btn-sm">Remove</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <a href="#" class="btn btn-primary btn-sm">
+          <i class="glyphicon glyphicon-search"></i>
+        </a>
+      </form>
     </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Client</th>
+          <th>Bid Placed On</th>
+          <th>Status</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Computer Programming</td>
+          <td><a href="profile/view">George Winston</a></td>
+          <td>01/01/2016</td>
+          <td><span class="label label-warning">Pending</span></td>
+          <td>
+            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <button type="button" class="btn btn-danger btn-sm">Remove</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Software Consulting</td>
+          <td><a href="/profile/view">Donald Yang</a></td>
+          <td>02/02/2016</td>
+          <td><span class="label label-warning">Pending</span></td>
+          <td>
+            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <button type="button" class="btn btn-danger btn-sm">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
