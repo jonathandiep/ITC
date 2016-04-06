@@ -5,18 +5,16 @@ angular.module('routes', ['ngRoute'])
     .when('/', {
       templateUrl: 'app/views/pages/home.html'
     })
+    // Authentication
     .when('/login', {
       templateUrl: 'app/views/pages/login.html',
       controller: 'sessionController',
       controllerAs: 'session'
     })
     .when('/signup', {
-      templateUrl: 'app/views/pages/signup.html',
+      templateUrl: 'app/views/pages/user_create.html',
       controller: 'userCreateController',
       controllerAs: 'user'
-    })
-    .when('/profile', {
-      templateUrl: 'app/views/pages/user_profile.html'
     })
     .when('/dashboard', {
       templateUrl: 'app/views/pages/dashboard.html'
@@ -24,11 +22,32 @@ angular.module('routes', ['ngRoute'])
     .when('/bidding', {
       templateUrl: 'app/views/pages/bidding.html'
     })
-    .when('/client/review', {
-      templateUrl: 'app/views/pages/client_review.html'
+    // Profile
+    .when('/profile', {
+      templateUrl: 'app/views/pages/profile_view.html'
     })
-    .when('/request/id/update', {
+    .when('/profile/edit', {
+      templateUrl: 'app/views/pages/profile_edit.html'
+    })
+    // Request
+    .when('/request/create', {
+      templateUrl: 'app/views/pages/request_create.html'
+    })
+    .when('/request/view', {
+      templateUrl: 'app/views/pages/request_view.html'
+    })
+    .when('/request/update', {
       templateUrl: 'app/views/pages/request_update.html'
+    })
+    // Review
+    .when('/review/view', {
+      templateUrl: 'app/views/pages/review_view.html'
+    })
+    .when('/review/create', {
+      templateUrl: 'app/views/pages/review_create.html'
+    })
+    .when('/review/edit', {
+      templateUrl: 'app/views/pages/review_update.html'
     });
 
   $locationProvider.html5Mode(true);

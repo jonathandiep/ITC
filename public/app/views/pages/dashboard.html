@@ -1,92 +1,137 @@
 <div class="container">
-  <!-- Service requests -->
-  <h3>Service Requests</h3>
-  <br>
   <div class="row">
-    <!-- Service request template -->
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+    <!-- Profile -->
+    <div class="col-sm-6">
       <div class="panel panel-default">
-        <!-- Name/Heading -->
-        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
-          <strong>Name/Heading</strong>
-          <span class="pull-right">
-            <button type="button" class="btn btn-success btn-sm">Update</button>
-            <button type="button" class="btn btn-danger btn-sm">Archive</button>
-          </span>
+        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px;">
+          <strong>Profile</strong>
+          <a href="profile/edit" class="btn btn-default btn-sm pull-right">
+            <i class="glyphicon glyphicon-pencil"></i> Update profile
+          </a>
         </div>
         <div class="panel-body">
-          </ul>
-          <!-- Posting date -->
-          <label for="posting_date">
-            <strong>Posting Date</strong>
-          </label>
-          <p>01/01/2016</p>
-          <!-- Description -->
-          <label for="description">
-            <strong>Description</strong>
-          </label>
-          <p>
-            Minus voluptatibus praesentium omnis officiis odit sunt culpa repellat. Omnis quisquam dolore fugit perferendis illo distinctio ipsa iure.
-          </p>
-          <!-- Status -->
-          <label for="status">
-            <strong>Status</strong>
-          </label>
-          <p>Open</p>
-          <hr>
-          <!-- Available service providers -->
-          <p>
-            <strong>Available offers</strong>
-          </p>
-          <!-- Sample service provider -->
           <div class="media">
             <div class="media-left media-middle">
-              <a href="#">
-                <img src="http://placehold.it/64x64" alt="Provider's profile picture" class="media-object">
-              </a>
+              <img src="http://placehold.it/96x96" alt="User's profile picture" class="media-object img-rounded">
             </div>
             <div class="media-body">
-              <p class="media-heading">
-                <strong>John Doe</strong>
-              </p>
-              <!-- <button type="button" class="btn btn-sm btn-info">Profile</button> -->
-              <a href="#" class="btn btn-sm btn-primary">View</a>
-              <a href="#" class="btn btn-sm btn-success">Accept</a>
-              <button class="btn btn-sm btn-danger">Decline</button>
-            </div>
-          </div>
-          <!-- Another sample service provider -->
-          <div class="media">
-            <div class="media-left media-middle">
-              <a href="#">
-                <img src="http://placehold.it/64x64" alt="Provider's profile picture" class="media-object">
-              </a>
-            </div>
-            <div class="media-body">
-              <p class="media-heading">
-                <strong>Morgan Freeman</strong>
-              </p>
-              <!-- <button type="button" class="btn btn-sm btn-info">Profile</button> -->
-              <a href="#" class="btn btn-sm btn-primary">View</a>
-              <a href="#" class="btn btn-sm btn-success">Accept</a>
-              <button type="button" class="btn btn-sm btn-danger">Decline</button>
+              <h4 class="media-heading">John Doe</h4>
+              <ul class="list-unstyled">
+                <li><strong>Email</strong>: johndoe@email.com</li>
+                <li><strong>Phone</strong>: (000) 000-0000</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <hr>
-  <!-- Biddings -->
-  <h3>Biddings</h3>
-  <br>
-  <div class="row">
-    <div class="col-xs-6 col-sm-3">
+    </div><!-- /profile -->
+    <!-- Statistics -->
+    <div class="col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading"></div>
-        <div class="panel-body"></div>
+        <div class="panel-heading">
+          <strong>Statistics</strong>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <li><strong>Overall Rating</strong>: 3.2</li>
+            <li><strong>Number of Reviews</strong>: 32</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-
+  <div class="row">
+    <!-- Service requests -->
+    <div class="col-sm-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
+          <strong>Service Requests</strong>
+          <a href="request/create" class="btn btn-default btn-sm pull-right">
+            <i class="glyphicon glyphicon-plus"></i> New service request
+          </a>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Posting Date</th>
+              <th>Status</th>
+              <th class="text-center"># of Offers</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gardening</td>
+              <td>01/01/2016</td>
+              <td><span class="label label-success">Open</span></td>
+              <td class="text-center">0</td>
+              <td>
+                <a href="request/view" class="btn btn-primary btn-sm">View</a>
+                <button type="button" class="btn btn-danger btn-sm">Remove</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Tennis Lessons</td>
+              <td>01/02/2016</td>
+              <td><span class="label label-danger">Closed</span></td>
+              <td class="text-center">5</td>
+              <td>
+                <a href="request/view" class="btn btn-primary btn-sm">View</a>
+                <button type="button" class="btn btn-danger btn-sm">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Service Bids -->
+    <div class="col-sm-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>Service Bids</strong>
+        </div>
+        <div class="panel-body">
+          <form action="" class="form-inline">
+            <div class="form-group">
+              <input type="search" placeholder="Find more client requests" class="form-control">
+            </div>
+            <a href="#" class="btn btn-default btn-sm">
+              <i class="glyphicon glyphicon-search"></i>
+            </a>
+          </form>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Client</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Computer Programming</td>
+              <td><a href="profile/view">George Winston</a></td>
+              <td><span class="label label-success">Open</span></td>
+              <td>
+                <a href="#" class="btn btn-primary btn-sm">View</a>
+                <button type="button" class="btn btn-danger btn-sm">Remove</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Software Consulting</td>
+              <td><a href="/profile/view">Donald Yang</a></td>
+              <td><span class="label label-success">Open</span></td>
+              <td>
+                <a href="#" class="btn btn-primary btn-sm">View</a>
+                <button type="button" class="btn btn-danger btn-sm">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
