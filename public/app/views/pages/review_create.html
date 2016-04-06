@@ -1,0 +1,46 @@
+<div class="container" style="max-width: 360px; margin: 0 auto;">
+  <form action="">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <!-- Reviewee's information -->
+        <img src="http://placehold.it/300x200" alt="Reviewee's profile picture" class="img-responsive">
+        <div class="text-center">
+          <h3>John Doe</h3>
+          <p>johndoe@email.com</p>
+          <p>(000) 000-0000</p>
+        </div>
+        <hr>
+        <!-- Rating -->
+        <div class="form-group">
+          <label for="rating" class="control-label">
+            <strong>Rating</strong>
+          </label>
+          <select name="rating" class="form-control">
+            <option value="-1"></option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+        </div>
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title" class="control-label">
+            <strong>Title</strong>
+          </label>
+          <input type="text" class="form-control" required>
+        </div>
+        <!-- Comments -->
+        <div class="form-group">
+          <label for="comments" class="control-label">
+            <strong>Comments</strong>
+          </label>
+          <textarea name="comments" rows="4" class="form-control" required></textarea>
+        </div>
+        <!-- Post button -->
+        <button class="btn btn-primary btn-block">Post review</button>
+      </div>
+    </div>
+  </form>
+</div>
