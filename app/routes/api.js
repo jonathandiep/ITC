@@ -442,6 +442,7 @@ module.exports = function(app, express) {
 
   api.route('/reviews/:review_id')
 
+    // PUT /reviews/:review_id => edit a review
     .put((req, res) => {
       var id = req.params.review_id;
       var rating = req.body.rating;
@@ -459,6 +460,7 @@ module.exports = function(app, express) {
       });
     })
 
+    // DELETE /reviews/:review_id => delete a review
     .delete((req, res) => {
       var id = req.params.review_id;
       pool.getConnection((err, connection) => {
