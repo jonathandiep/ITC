@@ -33,7 +33,9 @@ angular.module('routes', ['ngRoute'])
     })
     // Request
     .when('/request/create', {
-      templateUrl: 'app/views/pages/request/request_create.html'
+      templateUrl: 'app/views/pages/request/request_create.html',
+      controller: 'serviceReqController',
+      controllerAs: 'servReq'
     })
     .when('/request/search', {
       templateUrl: 'app/views/pages/request/request_select.html'

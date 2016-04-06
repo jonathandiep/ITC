@@ -1,6 +1,6 @@
 angular.module('reqService', [])
 
-.factory('Req', function($http) {
+.factory('Req', function($rootScope, $http) {
   var reqFactory = {};
 
   // getUserReqs(userID) => get all of service reqs matching userID
@@ -9,6 +9,9 @@ angular.module('reqService', [])
   };
 
   // makeReq => create new service request
+  reqFactory.makeReq = function(serviceReqData) {
+    return $http.post('/api/requests?clientID=' + $rootScope.user.id, serviceReqData);
+  };
 
   // getReq(id) => get info about a single service req
 

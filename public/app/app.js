@@ -4,6 +4,7 @@ angular.module('app', [
   'reqService',
   'userService',
   'dashCtrl',
+  'serviceReqCtrl',
   'sessionCtrl',
   'userCtrl'
 ])
