@@ -103,9 +103,53 @@ module.exports = function(app, express) {
         if (err) throw err;
         connection.release();
         res.send(results);
-      })
-    })
-  })
+      });
+    });
+  });
+
+
+  // GET /reviews?reviewer=reviewerID&reviewee=revieweeID => get reviews (params: reviewerID & revieweeID)
+  api.get('/reviews', (req, res) => {
+    if (req.query.reviewer) {
+      pool.getConnection((err, connection) => {
+        var reviewer = req.query.reviewer;
+        var sqlQuery = "SELECT * FROM Review WHERE reviewerID = ?";
+        connection.query(sqlQuery, [reviewer], (err, results) => {
+          if (err) throw err;
+          connection.release();
+          res.send(results);
+        });
+      });
+    } else if (req.query.reviewee) {
+      pool.getConnection((err, connection) => {
+        var reviewee = req.query.reviewee;
+        var sqlQuery = "SELECT * FROM Review WHERE revieweeID = ?";
+        connection.query(sqlQuery, [reviewee], (err, results) => {
+          if (err) throw err;
+          connection.release();
+          res.send(results);
+        });
+      });
+    } else {
+      res.json({
+        success: false,
+        message: 'Review needs parameters.'
+      });
+    }
+  });
+
+  // GET /reviews/:review_id => get info about a review
+  api.get('/reviews/:review_id', (req, res) => {
+    pool.getConnection((err, connection) => {
+      var id = req.params.review_id;
+      var sqlQuery = "SELECT * FROM Review WHERE idReview = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.send(result[0]);
+      });
+    });
+  });
 
   // route to authenticate users
   api.post('/authenticate', (req, res) => {
@@ -194,7 +238,7 @@ module.exports = function(app, express) {
 
   // POST /requests => submit/add request (get user_id from params)
   api.post('/requests', (req, res) => {
-    var clientID = req.body.clientID;
+    var clientID = req.query.clientID;
     var serviceTitle = req.body.serviceTitle;
     var description = req.body.description;
     var status = 'Open';
@@ -256,7 +300,7 @@ module.exports = function(app, express) {
   //   GET      /bids?provider=providerID&service=serviceRequestID => get all bids (params: providerID & service)
   //   GET      /bids/:bid_id => get info about a specific bid
   //   POST     /bids => submit a bid
-  //   PUT      /bids/bid_id => edit a bid
+  //   PUT      /bids/:bid_id => edit a bid
   //   DELETE   /bids/:bid_id => delete a bid
 
   api.route('/bids')
@@ -293,13 +337,13 @@ module.exports = function(app, express) {
       }
     })
 
+    // POST /bids => submit a bid
     .post((req, res) => {
       var service = req.query.service;
       var provider = req.query.provider;
-      var priceType = req.query.priceType;
-      var priceValue = req.query.priceValue;
-      var note = '';
-      if (req.query.note) note = req.query.note;
+      var priceType = req.body.priceType;
+      var priceValue = req.body.priceValue;
+      var note = req.body.note;
       var status = 'Pending';
       pool.getConnection((err, connection) => {
         var post = {serviceRequestID: service, providerID: provider, priceType: priceType, priceValue: priceValue, note: note, status: status};
@@ -318,6 +362,7 @@ module.exports = function(app, express) {
 
   api.route('/bids/:bid_id')
 
+    // GET /bids/:bid_id => get info about a specific bid
     .get((req, res) => {
       var id = req.params.bid_id;
       pool.getConnection((err, connection) => {
@@ -331,6 +376,7 @@ module.exports = function(app, express) {
       });
     })
 
+    // PUT /bids/:bid_id => edit a bid
     .put((req, res) => {
       var id = req.params.bid_id;
       var priceType = req.query.priceType;
@@ -350,6 +396,7 @@ module.exports = function(app, express) {
       });
     })
 
+    // DELETE /bids/:bid_id => delete a bid
     .delete((req, res) => {
       var id = req.params.bid_id;
       pool.getConnection((err, connection) => {
@@ -367,13 +414,66 @@ module.exports = function(app, express) {
 
   // API for reviews
   // DB table: Review
-  //  *GET      /reviews?reviewer=reviewerID&reviewee=revieweeID => get all reviews (params: reviewerID & revieweeID)
-  //  *GET      /reviews/:review_id => get info about a review
+  //   GET      /reviews?reviewer=reviewerID&reviewee=revieweeID => get reviews (params: reviewerID & revieweeID)
+  //   GET      /reviews/:review_id => get info about a review
   //   POST     /reviews => submit a review (use req.params)
   //   PUT      /reviews/:review_id => edit a review
   //   DELETE   /reviews/:review_id => delete a review
 
-  // * => publicly accessible
+  // POST /reviews => submit a review
+  api.post('/reviews', (req, res) => {
+    var reviewer = req.query.reviewer;
+    var reviewee = req.query.reviewee;
+    var rating = req.body.rating;
+    var message = req.body.message;
+    var reviewDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    pool.getConnection((err, connection) => {
+      var post = {reviewerID: reviewer, revieweeID: reviewee, rating: rating, message: message, reviewDate: reviewDate};
+      connection.query("INSERT INTO Review SET ?", post, (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.json({
+          success: true,
+          message: 'Review submitted!'
+        });
+      });
+    });
+  });
+
+  api.route('/reviews/:review_id')
+
+    .put((req, res) => {
+      var id = req.params.review_id;
+      var rating = req.body.rating;
+      var message = req.body.message;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "UPDATE Review SET rating = ?, message = ? WHERE idReview = ?";
+        connection.query(sqlQuery, [rating, message, id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'Review updated.'
+          });
+        });
+      });
+    })
+
+    .delete((req, res) => {
+      var id = req.params.review_id;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "DELETE FROM Review WHERE idReview = ?";
+        connection.query(sqlQuery, [id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'Review deleted.'
+          });
+        });
+      });
+    });
+
 
   api.get('/me', (req, res) => {
     res.send(req.decoded);
