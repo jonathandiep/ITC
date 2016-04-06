@@ -80,7 +80,7 @@ module.exports = function(app, express) {
     }
   });
 
-  // GET /requests/:request_id => get info about a request
+  // GET /requests/:request_id => get info about a specific request
   api.get('/requests/:request_id', (req, res) => {
     pool.getConnection((err, connection) => {
       var requestID = req.params.request_id;
@@ -253,18 +253,84 @@ module.exports = function(app, express) {
 
   // API for bids/quotes
   // DB table: Bid
-  //   GET      /bids => get all bids from provider (user_id)
+  //   GET      /bids?provider=providerID&service=serviceRequestID => get all bids (params: providerID & service)
+  //   GET      /bids/:bid_id => get info about a specific bid
   //   POST     /bids => submit a bid
-  //   GET      /bids/:bid_id => get info about a bid
   //   PUT      /bids/bid_id => edit a bid
   //   DELETE   /bids/:bid_id => delete a bid
 
+  api.route('/bids')
+
+    // GET /bids?provider=providerID&service=serviceRequestID => get bids (params: providerID & service)
+    .get((req, res) => {
+      if (req.query.provider) {
+        var provider = req.query.provider;
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid WHERE providerID = ?";
+          connection.query(sqlQuery, [provider], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            res.send(result);
+            console.log(result);
+          });
+        });
+      } else if (req.query.service) {
+        var service = req.query.service;
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid WHERE serviceRequestID = ?";
+          connection.query(sqlQuery, [service], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            res.send(result);
+            console.log(result);
+          });
+        });
+      } else {
+        res.send('Error. Need parameters.');
+      }
+    })
+
+    .post((req, res) => {
+      var service = req.query.service;
+      var provider = req.query.provider;
+      var priceType = req.query.priceType;
+      var priceValue = req.query.priceValue;
+      var note = '';
+      if (req.query.note) note = req.query.note;
+      var status = 'Pending';
+      pool.getConnection((err, connection) => {
+        var post = {serviceRequestID: service, providerID: provider, priceType: priceType, priceValue: priceValue, note: note, status: status};
+        var sqlQuery = "INSERT INTO Bid SET ?";
+        connection.query(sqlQuery, post, (err, result) => {
+          if (err) throw err;
+          connection.release();
+          console.log(result);
+          res.send('Bid confirmed.');
+        });
+      });
+    });
+
+  /*
+  api.route('/bids/:bid_id')
+
+    .get((req, res) => {
+
+    })
+
+    .put((req, res) => {
+
+    })
+
+    .delete((req, res) => {
+
+    });
+  */
 
   // API for reviews
   // DB table: Review
-  //  *GET      /reviews => get all reviews from user's id
+  //  *GET      /reviews?reviewer=reviewerID&reviewee=revieweeID => get all reviews (params: reviewerID & revieweeID)
   //  *GET      /reviews/:review_id => get info about a review
-  //   POST     /reviews => post review (use req.params)
+  //   POST     /reviews => submit a review (use req.params)
   //   PUT      /reviews/:review_id => edit a review
   //   DELETE   /reviews/:review_id => delete a review
 
