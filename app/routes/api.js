@@ -56,7 +56,6 @@ module.exports = function(app, express) {
 
   });
 
-
   // GET /requests?q=searchquery => get all requests (search params here)
   api.get('/requests', (req, res) => {
     if (req.query.q) {

@@ -14,8 +14,14 @@ angular.module('reqService', [])
   };
 
   // getReq(id) => get info about a single service req
+  reqFactory.getReq = function(id) {
+    return $http.get('/api/requests/' + id);
+  };
 
   // editReq(id) => edit info about a service req
+  reqFactory.editReq = function(id, serviceReqData) {
+    return $http.put('api/requests/' + id, serviceReqData);
+  };
 
   // deleteReq(id) => delete a service req
 

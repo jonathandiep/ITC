@@ -34,7 +34,7 @@ angular.module('routes', ['ngRoute'])
     // Request
     .when('/request/create', {
       templateUrl: 'app/views/pages/request/request_create.html',
-      controller: 'serviceReqController',
+      controller: 'submitServReqController',
       controllerAs: 'servReq'
     })
     .when('/request/search', {
@@ -43,11 +43,15 @@ angular.module('routes', ['ngRoute'])
     .when('/request/search/view', {
       templateUrl: 'app/views/pages/search/request_select.html'
     })
-    .when('/request/edit', {
-      templateUrl: 'app/views/pages/request/request_update.html'
+    .when('/request/edit/:id', {
+      templateUrl: 'app/views/pages/request/request_update.html',
+      controller: 'editServReqController',
+      controllerAs: 'servReq'
     })
-    .when('/request/view', {
-      templateUrl: 'app/views/pages/request/request_select.html'
+    .when('/request/view/:id', {
+      templateUrl: 'app/views/pages/request/request_select.html',
+      controller: 'getServReqController',
+      controllerAs: 'servReq'
     })
     // Review
     .when('/review/create', {

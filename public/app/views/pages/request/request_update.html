@@ -1,4 +1,4 @@
-<form id="update-request-form" class="container">
+<form id="update-request-form" class="container" ng-submit="servReq.editServReq()">
   <div class="panel panel-default">
     <div class="panel-body">
       <!-- Name/Heading -->
@@ -6,28 +6,30 @@
         <label for="title" class="control-label">
           <strong>Title</strong>
         </label>
-        <input type="text" name="Title" class="form-control" required>
+        <input type="text" name="Title" class="form-control" ng-model="servReq.servReqData.serviceTitle" required>
       </div>
       <!-- Description -->
       <div class="form-group">
         <label for="description" class="control-label">
           <strong>Description</strong>
         </label>
-        <textarea name="description" rows="4"class="form-control" required></textarea>
+        <textarea name="description" rows="4"class="form-control" ng-model="servReq.servReqData.description" required></textarea>
       </div>
       <!-- Status -->
       <div class="form-group">
         <label for="status" class="control-label">
           <strong>Status</strong>
         </label>
-        <select name="status" class="form-control">
+        <select name="status" class="form-control" ng-model="servReq.selected" ng-options="option.name for option in servReq.options">
+          <!--
           <option value="1">Open</option>
           <option value="2">Closed</option>
+        -->
         </select>
       </div>
       <!-- Actions -->
       <div class="pull-right">
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
         <a href="#" class="btn btn-danger">Cancel</a>
       </div>
     </div>
