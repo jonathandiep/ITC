@@ -1,8 +1,10 @@
 angular.module('app', [
   'routes',
   'authService',
+  'bidService',
   'reqService',
   'userService',
+  'bidCtrl',
   'dashCtrl',
   'serviceReqCtrl',
   'sessionCtrl',

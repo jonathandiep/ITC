@@ -1,6 +1,6 @@
 angular.module('dashCtrl', [])
 
-.controller('dashboardController', function($rootScope, Req) {
+.controller('dashboardController', function($rootScope, Req, Bid) {
   var vm = this;
 
   vm.services = [];
@@ -20,6 +20,10 @@ angular.module('dashCtrl', [])
             });
         }
         vm.offers = a;
+      });
+    Bid.getBids($rootScope.user.id)
+      .then(function(data) {
+        vm.bids= data.data;
       });
   }
 
