@@ -9,15 +9,17 @@ angular.module('dashCtrl', [])
   vm.display = function() {
     Req.getUserReqs($rootScope.user.id)
       .then(function(data) {
-        vm.services = data.data;
-        for(let v of vm.services) {
-          var a = [];
-          Req.countReqBids(v.idServiceRequest)
+        var info = data.data;
+        vm.services = info;
+        var a = new Array();
+        for(let i = 0; i < info.length; i++) {
+          a[i] = null;
+          Req.countReqBids(info[i].idServiceRequest)
             .then(function(data) {
-              a.push(data.data['count']);
-              vm.offers = a;
+              a[i] = data.data.count;
             });
         }
+        vm.offers = a;
       });
   }
 

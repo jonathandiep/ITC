@@ -53,24 +53,25 @@
           <th>Provider</th>
           <th>Rate</th>
           <th>Amount</th>
-          <th>Message</th>
+          <th>Note</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="bid in servReq.bidData" ng-if="servReq.servReqData.status === 'Open'">
+        <tr ng-repeat="bid in servReq.bidData">
           <td class="col-sm-2"><a href="profile/view">{{bid.firstName + ' ' + bid.lastName}}</a></td>
           <td class="col-sm-1">{{bid.priceType}}</td>
           <td class="col-sm-1">${{bid.priceValue.toFixed(2)}}</td>
           <td class="col-sm-6">{{bid.note}}</td>
-          <td class="col-sm-2">
-            <button type="button" class="btn btn-success btn-sm">
+          <td class="col-sm-2" ng-if="bid.status === 'Pending'">
+            <button type="button" class="btn btn-success btn-sm" ng-click="servReq.acceptBid(bid)">
               <i class="glyphicon glyphicon-ok"></i>
             </button>
-            <button type="button" class="btn btn-danger btn-sm">
+            <button type="button" class="btn btn-danger btn-sm" ng-click="servReq.rejectBid(bid)">
               <i class="glyphicon glyphicon-remove"></i>
             </button>
           </td>
+          <td class="col-sm-2"><span class="label label-success" ng-if="bid.status === 'Accepted'">Accepted</span></td>
         </tr>
       </tbody>
     </table>
