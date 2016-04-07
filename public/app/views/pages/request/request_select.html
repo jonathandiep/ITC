@@ -5,7 +5,7 @@
     <div class="panel-heading">
       <strong>Service Request</strong>
       <span class="pull-right">
-        <a href="request/edit" class="btn btn-default btn-sm">
+        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm">
           <i class="glyphicon glyphicon-pencil"></i>
           Edit
         </a>
@@ -18,14 +18,14 @@
           <label>
             <strong>Service</strong>
           </label>
-          <p>Gardening</p>
+          <p>{{servReq.servReqData.serviceTitle}}</p>
         </div>
         <!-- Posting date -->
         <div class="col-xs-4">
           <label>
             <strong>Posting Date</strong>
           </label>
-          <p>01/01/2016</p>
+          <p>{{servReq.servReqData.date.substring(0, 10)}}</p>
         </div>
         <!-- Status -->
         <div class="col-xs-4">
@@ -33,7 +33,8 @@
             <strong>Status</strong>
           </label>
           <p>
-            <span class="label label-success">Open</span>
+            <span class="label label-success" ng-if="servReq.servReqData.status === 'Open'">Open</span>
+            <span class="label label-danger"  ng-if="servReq.servReqData.status !== 'Open'">Closed</span>
           </p>
         </div>
       </div>
@@ -43,7 +44,7 @@
         <strong>Description</strong>
       </label>
       <p>
-        Minus voluptatibus praesentium omnis officiis odit sunt culpa repellat. Omnis quisquam dolore fugit perferendis illo distinctio ipsa iure.
+        {{servReq.servReqData.description}}
       </p>
     </div>
     <table class="table table-responsive table-hover">

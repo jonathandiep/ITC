@@ -67,7 +67,7 @@
             <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
             <td class="text-center">{{dash.offers[$index]}}</td>
             <td>
-              <a href="request/view" class="btn btn-primary btn-sm">View</a>
+              <a ng-href="request/view/{{service.idServiceRequest}}" class="btn btn-primary btn-sm">View</a>
             </td>
           </tr>
         </tbody>
