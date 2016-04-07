@@ -36,7 +36,7 @@ angular.module('routes', ['ngRoute'])
       templateUrl: 'app/views/pages/request/request_create.html'
     })
     .when('/request/search', {
-      templateUrl: 'app/views/pages/request/request_select.html'
+      templateUrl: 'app/views/pages/request/request_search.html'
     })
     .when('/request/search/view', {
       templateUrl: 'app/views/pages/search/request_select.html'

@@ -1,5 +1,5 @@
 <!-- Service request template -->
-<div id="view-request-panel" class="container">
+<div class="container" style="max-width: 640px; margin: 0 auto;">
   <div class="panel panel-default">
     <!-- Name/Heading -->
     <div class="panel-heading">
@@ -14,21 +14,21 @@
     <div class="panel-body">
       <div class="row">
         <!-- Title -->
-        <div class="col-sm-4">
+        <div class="col-xs-4">
           <label>
             <strong>Service</strong>
           </label>
           <p>Gardening</p>
         </div>
         <!-- Posting date -->
-        <div class="col-sm-4">
+        <div class="col-xs-4">
           <label>
             <strong>Posting Date</strong>
           </label>
           <p>01/01/2016</p>
         </div>
-        <div class="col-sm-4">
-          <!-- Status -->
+        <!-- Status -->
+        <div class="col-xs-4">
           <label>
             <strong>Status</strong>
           </label>
@@ -37,7 +37,7 @@
           </p>
         </div>
       </div>
-      <hr>
+      <br>
       <!-- Description -->
       <label>
         <strong>Description</strong>
@@ -45,26 +45,33 @@
       <p>
         Minus voluptatibus praesentium omnis officiis odit sunt culpa repellat. Omnis quisquam dolore fugit perferendis illo distinctio ipsa iure.
       </p>
-      <hr>
-      <!-- Available service providers -->
-      <label>
-        <strong>Available Offers</strong>
-      </label>
-      <div class="media">
-        <div class="media-left media-middle">
-          <a href="profile/view">
-            <img src="http://placehold.it/64x64" alt="Provider's profile picture" class="media-object">
-          </a>
-        </div>
-        <div class="media-body">
-          <p class="media-heading">
-            <a href="">John Doe</a>
-          </p>
-          <button type="button" class="btn btn-sm btn-primary">View details</button>
-          <button href="#" class="btn btn-sm btn-success">Accept</button>
-          <button class="btn btn-sm btn-danger">Decline</button>
-        </div>
-      </div>
     </div>
+    <table class="table table-responsive table-hover">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Rate</th>
+          <th>Amount</th>
+          <th>Message</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-sm-2"><a href="profile/view">John Doe</a></td>
+          <td class="col-sm-1">Fixed</td>
+          <td class="col-sm-1">$0.00</td>
+          <td class="col-sm-6">I'd like to know more details about the job. Please email me.</td>
+          <td class="col-sm-2">
+            <button type="button" class="btn btn-success btn-sm">
+              <i class="glyphicon glyphicon-ok"></i>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm">
+              <i class="glyphicon glyphicon-remove"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
