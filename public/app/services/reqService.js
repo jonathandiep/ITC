@@ -30,5 +30,10 @@ angular.module('reqService', [])
     return $http.get('/api/requests/count/' + reqID);
   };
 
+  // getBids(id) => get all bids on a given request
+  reqFactory.getBids = function(reqID) {
+    return $http.get('/api/bids/' + reqID);
+  };
+
   return reqFactory;
 });

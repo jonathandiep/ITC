@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
 var mysql = require('mysql');
 var config = require('../../config');
 
@@ -33,17 +34,17 @@ module.exports = function(app, express) {
         }
       }
 
-      res.json({ message: 'User created!' });
+      //res.json({ message: 'User created!' });
 
       // get _id from MongoDB and create user in MySQL
       User.findOne({
         email: req.body.email
-      }).select('_id').exec((err, user) => {
+      }).select('_id firstName lastName').exec((err, user) => {
         if (err) throw err;
 
         // create user in MySQL
         pool.getConnection((err, connection) => {
-          var post = {idUser: user._id};
+          var post = {idUser: user._id, firstName: user.firstName, lastName: user.lastName};
           connection.query("INSERT INTO User SET ?", post, (err, result) => {
             if (err) throw err;
             connection.release();
@@ -52,6 +53,7 @@ module.exports = function(app, express) {
 
       });
 
+    res.json({ message: 'User created!' });
     });
 
   });
@@ -376,6 +378,7 @@ module.exports = function(app, express) {
 
   api.route('/bids/:bid_id')
 
+    /*
     // GET /bids/:bid_id => get info about a specific bid
     .get((req, res) => {
       var id = req.params.bid_id;
@@ -388,6 +391,22 @@ module.exports = function(app, express) {
           res.send(result[0]);
         });
       });
+    })
+    */
+
+    // GET /bids/:bid_id => get info about a specific bid
+    .get((req, res) => {
+      var id = req.params.bid_id;
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? ";
+        connection.query(sqlQuery, [id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          console.log(result);
+          res.send(result);
+        });
+      });
+
     })
 
     // PUT /bids/:bid_id => edit a bid

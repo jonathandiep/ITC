@@ -58,11 +58,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="col-sm-2"><a href="profile/view">John Doe</a></td>
-          <td class="col-sm-1">Fixed</td>
-          <td class="col-sm-1">$0.00</td>
-          <td class="col-sm-6">I'd like to know more details about the job. Please email me.</td>
+        <tr ng-repeat="bid in servReq.bidData" ng-if="servReq.servReqData.status === 'Open'">
+          <td class="col-sm-2"><a href="profile/view">{{bid.firstName + ' ' + bid.lastName}}</a></td>
+          <td class="col-sm-1">{{bid.priceType}}</td>
+          <td class="col-sm-1">${{bid.priceValue.toFixed(2)}}</td>
+          <td class="col-sm-6">{{bid.note}}</td>
           <td class="col-sm-2">
             <button type="button" class="btn btn-success btn-sm">
               <i class="glyphicon glyphicon-ok"></i>

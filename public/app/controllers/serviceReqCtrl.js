@@ -21,8 +21,13 @@ angular.module('serviceReqCtrl', [])
     var id = $routeParams.id;
     Req.getReq(id)
       .success(function(data) {
-        console.log(data);
+        //console.log(data);
         vm.servReqData = data;
+      });
+    Req.getBids(id)
+      .success(function(data) {
+        console.log(data);
+        vm.bidData = data;
       });
   };
 
