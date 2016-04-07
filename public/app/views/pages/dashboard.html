@@ -1,131 +1,116 @@
-<div class="container">
-  <!-- Profile and statistics -->
-  <div class="row">
-    <!-- Profile -->
-    <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px;">
-          <strong>Profile</strong>
-          <a href="profile/edit" class="btn btn-default btn-sm pull-right">
-            <i class="glyphicon glyphicon-pencil"></i> Update profile
-          </a>
-        </div>
-        <div class="panel-body">
-          <div class="media">
-            <div class="media-left media-middle">
-              <img src="http://placehold.it/96x96" alt="User's profile picture" class="media-object img-rounded">
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">{{sess.user.firstName + ' ' + sess.user.lastName}}</h4>
-              <ul class="list-unstyled">
-                <li><strong>Email</strong>: johndoe@email.com</li>
-                <li><strong>Phone</strong>: (000) 000-0000</li>
-              </ul>
-            </div>
+<div class="row">
+  <!-- Profile -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Profile</strong>
+        <a href="/profile/edit" class="btn btn-default btn-sm pull-right">
+          <i class="glyphicon glyphicon-pencil"></i> Update profile
+        </a>
+      </div>
+      <div class="panel-body">
+        <div class="media">
+          <div class="media-left media-middle">
+            <img src="http://placehold.it/96x96" alt="User's profile picture" class="media-object img-rounded">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{sess.user.firstName + ' ' + sess.user.lastName}}</h4>
+            <ul class="list-unstyled">
+              <li><strong>Email</strong>: johndoe@email.com</li>
+              <li><strong>Phone</strong>: (000) 000-0000</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div><!-- /profile -->
-    <!-- Statistics -->
-    <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <strong>Statistics</strong>
-        </div>
-        <div class="panel-body">
-          <ul class="list-unstyled">
-            <li><strong>Overall Rating</strong>: 3.2</li>
-            <li><strong>Number of Reviews</strong>: 32</li>
-          </ul>
-        </div>
+    </div>
+  </div>
+  <!-- Statistics -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Statistics</strong>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <li><strong>Overall Rating</strong>: 3.2</li>
+          <li><strong>Number of Reviews</strong>: 32</li>
+        </ul>
       </div>
     </div>
   </div>
-  <!-- Service requests -->
-  <div id="service-requests-panel" class="panel panel-default">
-      <div class="panel-heading" style="padding-top: 10px; padding-bottom: 15px; ">
-        <strong>Service Requests</strong>
-        <a href="request/create" class="btn btn-default btn-sm pull-right">
-          <i class="glyphicon glyphicon-plus"></i> New service request
-        </a>
+</div>
+<!-- Service requests -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Service Requests</strong>
+    <a href="request/create" class="btn btn-default btn-sm pull-right">
+      <i class="glyphicon glyphicon-plus"></i> New service request
+    </a>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Request Posted On</th>
+        <th>Status</th>
+        <th class="text-center"># of Offers</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="service in dash.services">
+        <td>{{service.serviceTitle}}</td>
+        <td>{{service.date.substring(0,10)}}</td>
+        <td ng-if="service.status === 'Open'"><span class="label label-success">Open</span></td>
+        <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
+        <td class="text-center">{{dash.offers[$index]}}</td>
+        <td>
+          <a href="request/view" class="btn btn-primary btn-sm">View</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Bidding history -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Service Bids</strong>
+  </div>
+  <div class="panel-body">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="search" placeholder="Find client requests" class="form-control">
       </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Request Posted On</th>
-            <th>Status</th>
-            <th class="text-center"># of Offers</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="service in dash.services">
-            <td>{{service.serviceTitle}}</td>
-            <td>{{service.date.substring(0,10)}}</td>
-            <td ng-if="service.status === 'Open'"><span class="label label-success">Open</span></td>
-            <td ng-if="service.status !== 'Open'"><span class="label label-danger">Closed</span></td>
-            <td class="text-center">{{dash.offers[$index]}}</td>
-            <td>
-              <a href="request/view" class="btn btn-primary btn-sm">View</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <a href="/request/search" class="btn btn-primary btn-sm">
+        <i class="glyphicon glyphicon-search"></i>
+      </a>
+    </form>
   </div>
-  <!-- Bidding history -->
-  <div id="service-requests-panel" class="panel panel-default">
-    <div class="panel-heading">
-      <strong>Service Bids</strong>
-    </div>
-    <div class="panel-body">
-      <form action="" class="form-inline">
-        <div class="form-group">
-          <input type="search" placeholder="Find more client requests" class="form-control">
-        </div>
-        <a href="#" class="btn btn-primary btn-sm">
-          <i class="glyphicon glyphicon-search"></i>
-        </a>
-      </form>
-    </div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Service</th>
-          <th>Client</th>
-          <th>Bid Placed On</th>
-          <th>Status</th>
-          <th>Amount</th>
-          <th>Rate</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Computer Programming</td>
-          <td><a href="profile/view">George Winston</a></td>
-          <td>01/01/2016</td>
-          <td><span class="label label-warning">Pending</span></td>
-          <td>$0.00</td>
-          <td>Fixed</td>
-          <td>
-            <a href="#" class="btn btn-primary btn-sm">Update</a>
-            <button type="button" class="btn btn-danger btn-sm">Remove</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Software Consulting</td>
-          <td><a href="/profile/view">Donald Yang</a></td>
-          <td>02/02/2016</td>
-          <td><span class="label label-warning">Pending</span></td>
-          <td>$0.00</td>
-          <td>Hourly</td>
-          <td>
-            <a href="/" class="btn btn-primary btn-sm">Update</a>
-            <button type="button" class="btn btn-danger btn-sm">Remove</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Client</th>
+        <th>Bid Placed On</th>
+        <th>Status</th>
+        <th>Amount</th>
+        <th>Rate</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Software Consulting</td>
+        <td><a href="/user/view">Donald Yang</a></td>
+        <td>02/02/2016</td>
+        <td><span class="label label-warning">Pending</span></td>
+        <td>$0.00</td>
+        <td>Hourly</td>
+        <td>
+          <a href="/offer/update" class="btn btn-primary btn-sm">Update</a>
+          <button type="button" class="btn btn-danger btn-sm">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

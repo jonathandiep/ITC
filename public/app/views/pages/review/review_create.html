@@ -1,38 +1,51 @@
-<form id="create-review-form" class="container">
+<form id="create-review-form">
   <div class="panel panel-default">
-    <div class="panel-heading">Creating a review</div>
+    <div class="panel-heading">
+      <strong>Write a Review</strong>
+    </div>
     <div class="panel-body">
       <div class="row">
         <!-- Who am I reviewing? -->
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <label>
-            <strong>Reviewing</strong>
+            <strong>Person being reviewed</strong>
           </label>
           <p>John Doe</p>
         </div>
-      <!-- What service did they perform? -->
-        <div class="col-sm-4">
+        <!-- What service was involved? -->
+        <div class="col-sm-6">
           <label>
-            <strong>Service Performed</strong>
+            <strong>Service</strong>
           </label>
           <p>Gardening</p>
         </div>
-        <div class="col-sm-4"></div>
       </div>
-      <hr>
-      <!-- Rating -->
-      <div class="form-group">
-        <label for="rating" class="control-label">
-          <strong>Rating</strong>
-        </label>
-        <select name="rating" class="form-control">
-          <option value="-1"></option>
-          <option value="5">5</option>
-          <option value="4">4</option>
-          <option value="3">3</option>
-          <option value="2">2</option>
-          <option value="1">1</option>
-        </select>
+      <br>
+      <div class="row">
+        <!-- Who am I reviewing as? (i.e. client or provider) -->
+        <div class="form-group col-sm-6">
+          <label for="reviewing_as" class="control-label">
+            <strong>Reviewing as a</strong>
+          </label>
+          <select name="reviewing_as" class="form-control">
+            <option value="1">Client</option>
+            <option value="2">Service Provider</option>
+          </select>
+        </div>
+        <!-- Rating -->
+        <div class="form-group col-sm-6">
+          <label for="rating" class="control-label">
+            <strong>Rating</strong>
+          </label>
+          <select name="rating" class="form-control" required>
+            <option value=""></option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+        </div>
       </div>
       <!-- Title -->
       <div class="form-group">
@@ -48,8 +61,8 @@
         </label>
         <textarea name="comments" rows="4" class="form-control" required></textarea>
       </div>
-      <!-- Post button -->
-      <button class="btn btn-primary btn-block">Post review</button>
+      <!-- Action -->
+      <button type="submit" class="btn btn-primary btn-block">Post review</button>
     </div>
   </div>
 </form>
