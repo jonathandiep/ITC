@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
 var mysql = require('mysql');
 var config = require('../../config');
 
@@ -33,17 +34,17 @@ module.exports = function(app, express) {
         }
       }
 
-      res.json({ message: 'User created!' });
+      //res.json({ message: 'User created!' });
 
       // get _id from MongoDB and create user in MySQL
       User.findOne({
         email: req.body.email
-      }).select('_id').exec((err, user) => {
+      }).select('_id firstName lastName').exec((err, user) => {
         if (err) throw err;
 
         // create user in MySQL
         pool.getConnection((err, connection) => {
-          var post = {idUser: user._id};
+          var post = {idUser: user._id, firstName: user.firstName, lastName: user.lastName};
           connection.query("INSERT INTO User SET ?", post, (err, result) => {
             if (err) throw err;
             connection.release();
@@ -52,6 +53,7 @@ module.exports = function(app, express) {
 
       });
 
+    res.json({ message: 'User created!' });
     });
 
   });
@@ -376,6 +378,7 @@ module.exports = function(app, express) {
 
   api.route('/bids/:bid_id')
 
+    /*
     // GET /bids/:bid_id => get info about a specific bid
     .get((req, res) => {
       var id = req.params.bid_id;
@@ -389,25 +392,62 @@ module.exports = function(app, express) {
         });
       });
     })
+    */
+
+    // GET /bids/:bid_id => get info about a specific bid
+    .get((req, res) => {
+      var id = req.params.bid_id;
+      var status = req.query.status;
+      console.log(status);
+      pool.getConnection((err, connection) => {
+        var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND status = ? ";
+        connection.query(sqlQuery, [id, status], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          console.log(result);
+          res.send(result);
+        });
+      });
+
+    })
 
     // PUT /bids/:bid_id => edit a bid
     .put((req, res) => {
       var id = req.params.bid_id;
-      var priceType = req.query.priceType;
-      var priceValue = req.query.priceValue;
-      var note = req.query.note;
-      var status = req.query.status;
-      pool.getConnection((err, connection) => {
-        var sqlQuery = "UPDATE Bid SET priceType = ?, priceValue = ?, note = ?, status = ? WHERE idBid = ?";
-        connection.query(sqlQuery, [priceType, priceValue, note, status, id], (err, result) => {
-          if (err) throw err;
-          connection.release();
-          res.json({
-            success: true,
-            message: 'Bid updated.'
+      var priceType = req.body.priceType;
+      var priceValue = req.body.priceValue;
+      var note = req.body.note;
+      var status = req.body.status;
+      if (status === 'Accepted') {
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "UPDATE Bid SET status = ? WHERE idBid = ?";
+          var sqlQuery2 = "UPDATE Bid SET status = ? WHERE idBid != ?";
+          connection.query(sqlQuery, ['Accepted', id], (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            connection.query(sqlQuery2, ['Declined', id], (err, result) => {
+              if (err) throw err;
+              connection.release();
+              res.json({
+                success: true,
+                message: 'Accepted bid.'
+              });
+            });
           });
         });
-      });
+      } else {
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "UPDATE Bid SET priceType = ?, priceValue = ?, note = ?, status = ? WHERE idBid = ?";
+          connection.query(sqlQuery, [priceType, priceValue, note, status, id], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            res.json({
+              success: true,
+              message: 'Bid updated.'
+            });
+          });
+        });
+      }
     })
 
     // DELETE /bids/:bid_id => delete a bid
