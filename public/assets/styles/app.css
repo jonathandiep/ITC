@@ -12,6 +12,10 @@ footer {
   width: 100%;
 }
 
+textarea {
+  resize: vertical;
+}
+
 .panel-heading {
   padding-top: 10px;
   padding-bottom: 15px;
@@ -55,7 +59,7 @@ footer {
  * Panels
  */
 #view-request-panel {
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
 }
 

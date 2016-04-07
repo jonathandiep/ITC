@@ -16,9 +16,6 @@ angular.module('routes', ['ngRoute'])
       controller: 'dashboardController',
       controllerAs: 'dash'
     })
-    .when('/bidding', {
-      templateUrl: 'app/views/pages/bidding.html'
-    })
     .when('/profile/edit', {
       templateUrl: 'app/views/pages/profile_edit.html'
     })
@@ -30,6 +27,10 @@ angular.module('routes', ['ngRoute'])
     })
     .when('/user/view', {
       templateUrl: 'app/views/pages/user/user_view.html'
+    })
+    // Offer
+    .when('/offer/update', {
+      templateUrl: 'app/views/pages/offer/offer_update.html'
     })
     // Request
     .when('/request/create', {
@@ -62,6 +63,10 @@ angular.module('routes', ['ngRoute'])
     })
     .when('/review/view', {
       templateUrl: 'app/views/pages/review/review_select.html'
+    })
+    // Search
+    .when('/request/search/view', {
+      templateUrl: 'app/views/pages/offer/offer_update.html'
     });
 
   $locationProvider.html5Mode(true);

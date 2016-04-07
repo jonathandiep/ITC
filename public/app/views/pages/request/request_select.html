@@ -1,13 +1,11 @@
-<!-- Service request template -->
-<div class="container" style="max-width: 640px; margin: 0 auto;">
+<div id="view-request-panel" class="container">
   <div class="panel panel-default">
     <!-- Name/Heading -->
     <div class="panel-heading">
       <strong>Service Request</strong>
       <span class="pull-right">
         <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm">
-          <i class="glyphicon glyphicon-pencil"></i>
-          Edit
+          <i class="glyphicon glyphicon-pencil"></i> Edit
         </a>
       </span>
     </div>
@@ -47,6 +45,7 @@
         {{servReq.servReqData.description}}
       </p>
     </div>
+    <!-- Available providers -->
     <table class="table table-responsive table-hover">
       <thead>
         <tr>
@@ -59,7 +58,7 @@
       </thead>
       <tbody>
         <tr>
-          <td class="col-sm-2"><a href="profile/view">John Doe</a></td>
+          <td class="col-sm-2"><a href="/user/view">Jon Wang</a></td>
           <td class="col-sm-1">Fixed</td>
           <td class="col-sm-1">$0.00</td>
           <td class="col-sm-6">I'd like to know more details about the job. Please email me.</td>
