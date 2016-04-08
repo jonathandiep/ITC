@@ -202,7 +202,7 @@ After the service provider's bid is accepted, they will be able to write a revie
 - Title of the review
 - Comments
 
-When writing the review the service provider will know who they are writing a review for and for what service
+When writing the review the service provider will know who they are writing a review for and for what service.
 
 The service provider has two actions available:
 - Post review
@@ -214,7 +214,7 @@ After the client has accepted a service provider's bid, they will be able to wri
 - Title of the review
 - Comments
 
-When writing the review the service provider will know who they are writing a review for and for what service
+When writing the review the service provider will know who they are writing a review for and for what service.
 
 The service provider has two actions available:
 - Post review
