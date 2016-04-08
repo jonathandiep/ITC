@@ -122,6 +122,7 @@ The user can update the following information:
 - Password
 - Address
 - Phone number
+
 The user has two actions available which will take them back to the dashboard once either action is executed:
 - Save profile information
 - Cancel profile changes (if any)
@@ -130,6 +131,7 @@ The user has two actions available which will take them back to the dashboard on
 The user is required to enter the following information:
 - Title
 - Description
+
 The user has two actions available which will take them back to the dashboard once either action is executed:
 - Create new service request
 - Cancel creating the service request
@@ -141,6 +143,7 @@ The user can view the following information when they click 'view' on a service 
 - Status
 - Description
 - List of service providers and their bids
+
 Each bid in the service request will have the following information:
 - Name of the service provider
 - The rate the service provider is charging (if any)
@@ -149,6 +152,7 @@ Each bid in the service request will have the following information:
   - Needs more information
 - The dollar amount the service provider is charging (if any)
 - Any note for the client to read
+
 The user has the option to accept or decline each bid in the service request. Their choices will be reflected on the service provider's end in the 'Service Bids' panel of the dashboard page.
 
 ### Update a service request
@@ -158,6 +162,7 @@ The user can update the following information:
 - Status
   - Open
   - Closed
+
 The user has two actions available which will take them back to the previous page once either action is executed:
 - Update the service request
 - Cancel updating the service request
