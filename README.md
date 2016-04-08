@@ -61,8 +61,13 @@ Node.js has a package manager called Node Package Manager. We have used the foll
   5. [mongoose](https://www.npmjs.com/package/mongoose)
   6. [morgan](https://www.npmjs.com/package/morgan)
   7. [mysql](https://www.npmjs.com/package/mysql)
-- Authentication
+
+### Authentication
+
+### REST APIs
 - REST APIs created with express
+
+### Angular
 - angular: views are updated by making HTTP calls to the APIs
 - data is passed in json and angular automatically updates views
 
