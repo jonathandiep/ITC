@@ -52,13 +52,13 @@ Registered users can function as a client and/or a service provider. In other wo
 
 ## Technical Documentation
 - NPM modules used:
-..1. bcrypt-nodejs
-..2. body-parser
-..3. express
-..4. jsonwebtokens
-..5. mongoose
-..6. morgan
-..7. mysql
+  1. bcrypt-nodejs
+  2. body-parser
+  3. express
+  4. jsonwebtokens
+  5. mongoose
+  6. morgan
+  7. mysql
 - Authentication
 - REST APIs created with express
 - angular: views are updated by making HTTP calls to the APIs
