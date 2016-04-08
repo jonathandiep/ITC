@@ -66,11 +66,17 @@ APIs will need its own section
 ## Technical Documentation
 
 ## User Interface
-Each section will provide explanations and illustrations for the feature being described.
+This section briefly explains the
 
 ### Home page
+Users navigate to the sign up page and login page. Users can also search for available service requests through the search bar found below the navigation bar in the main content area. Optionally, they can click on the 'or browse services' button to view all service requests. Below the search feature talks briefly about what the web application has to offer to potential customers. At the end of the page, there is a footer displaying dummy links to give the home page a similar look and feel as other web services and e-commerce websites.
 
 ### Sign up page
+Users will sign in with the following information:
+- First name
+- Last name
+- Email address
+- Password
 Users are uniquely identified using their email address which cannot be changed once the account has been created for that user.
 
 ### Log in page
@@ -83,9 +89,9 @@ When users log in, they will be directed to their dashboard displaying the follo
 - Profile picture
 - First name
 - Last name
-- Email
+- Email address
 - Address
-- Phone
+- Phone number
 
 ####2. User's statistics
 - Number of Reviews
@@ -93,7 +99,7 @@ When users log in, they will be directed to their dashboard displaying the follo
 
 ####3. Service Requests
 This panel is used for viewing both current and past service requests. Each service request will have the following information:
-- Service heading
+- Title of the service
 - Date in which the service request was created
 - Status of the service request
   - Open
@@ -101,31 +107,73 @@ This panel is used for viewing both current and past service requests. Each serv
 - Number of bids available for that service request
 
 ####4. Service Bids
-This panel is used for viewing both current and past service bids. Each service bid will have the following information:
-- Service heading
+This panel is used for viewing both current and service bids. Each bid will have the following information:
+- Title of the service
 - Name of the client requesting the service
 - Status of the service request
-  - Pending
-  - Declined
-  - Accepted
-- The price amount placed for the bid on the service request
+  - Pending: The client is still in the process of accepting/declining your bid.
+  - Declined: The client has declined your bid.
+  - Accepted: The client has accepted your bid.
+- The price amount placed for the bid on the service request (in US dollars)
 - The price rate placed for the bid on the service request
   - Fixed
   - Hourly
   - Needs more information
--
 
 ### Update profile
+The user can update the following information:
+- First name
+- Last name
+- Password
+- Address
+- Phone number
+The user has two actions available which will take them back to the dashboard once either action is executed:
+- Save profile information
+- Cancel profile changes (if any)
 
 ### Create a new service request
+The user is required to enter the following information:
+- Title
+- Description
+The user has two actions available which will take them back to the dashboard once either action is executed:
+- Create new service request
+- Cancel creating the service request
+
+### View of a service request
+The user can view the following information when they click 'view' on a service request in the 'Service Requests' panel of the dashboard page.
+- Title of the service
+- Request created on
+- Status
+- Description
+- List of service providers and their bids
+Each bid in the service request will have the following information:
+- Name of the service provider
+- The rate the service provider is charging (if any)
+  - Fixed
+  - Hourly
+  - Needs more information
+- The dollar amount the service provider is charging (if any)
+- Any note for the client to read
+The user has the option to accept or decline each bid in the service request. Their choices will be reflected on the service provider's end in the 'Service Bids' panel of the dashboard page.
 
 ### Update a service request
-
-### Close a service request
+The user can update the following information:
+- Title
+- Description
+- Status
+  - Open
+  - Closed
+The user has two actions available which will take them back to the previous page once either action is executed:
+- Update the service request
+- Cancel updating the service request
 
 ### Bid on a service request
+The user will need to search for an open service request using the search feature provided in the 'Service Bids' panel under the heading. Once they reach the search results and there are open service requests available, the user can view one of the service requests and place a bid on the selected request. From here the user has two actions available:
+- Place bid: Directs the user to the dashboard page
+- Cancel: Directs the user back to the search results page
 
-### Update a bid on a service request
+### Updating a bid on a service request
+The user can update their bids (if the bid is still pending) by navigating to the 'Service Bids' panel on the dashboard page and viewing any pending bid. Afterwards the user can update their bid information. Optionally, they can remove their bid.
 
 ### Writing a review to a client
 
