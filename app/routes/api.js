@@ -501,6 +501,19 @@ module.exports = function(app, express) {
     });
   });
 
+  // GET /reviews/:review_id => returns total amount of reviews and avg of a review.
+  api.get('/reviews/stats/:reviewee_id', (req, res) => {
+    var revieweeID = req.params.reviewee_id;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT COUNT(*) AS total, AVG(rating) AS avg FROM Review WHERE revieweeID = ?";
+      connection.query(sqlQuery, [revieweeID], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.send(result[0]);
+      });
+    });
+  });
+
   api.route('/reviews/:review_id')
 
     // PUT /reviews/:review_id => edit a review

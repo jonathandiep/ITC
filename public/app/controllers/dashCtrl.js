@@ -1,6 +1,6 @@
 angular.module('dashCtrl', [])
 
-.controller('dashboardController', function($rootScope, $location, $window, Req, Bid, User) {
+.controller('dashboardController', function($rootScope, $location, $window, Req, Bid, User, Review) {
   var vm = this;
 
   vm.services = [];
@@ -29,8 +29,12 @@ angular.module('dashCtrl', [])
 
     User.getUserProfile($rootScope.user.id)
       .then(function(data) {
-        console.log(data.data);
         vm.profile = data.data;
+      })
+
+    Review.getReviewStatistics($rootScope.user.id)
+      .then(function(data) {
+        vm.statistics = data.data;
       })
   }
 

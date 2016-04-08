@@ -34,8 +34,9 @@
         </div>
         <div class="panel-body">
           <ul class="list-unstyled">
-            <li><strong>Overall Rating</strong>: 3.2</li>
-            <li><strong>Number of Reviews</strong>: 32</li>
+            <li><strong>Number of Reviews</strong>: {{dash.statistics.total}}</li>
+            <li ng-if="dash.statistics.avg"><strong>Overall Rating</strong>: {{dash.statistics.avg}}</li>
+            <li ng-if="!dash.statistics.avg"><strong>Overall Rating</strong>: N/A</li>
           </ul>
         </div>
       </div>
