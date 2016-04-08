@@ -93,7 +93,7 @@ module.exports = function(app, express) {
       });
     } else {
       pool.getConnection((err, connection) => {
-        connection.query('SELECT * FROM ServiceRequest', (err, results) => {
+        connection.query("SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE serviceStatus = 'Open'", (err, results) => {
           if (err) throw err;
           connection.release();
           res.send(results);

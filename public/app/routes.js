@@ -7,6 +7,11 @@ angular.module('routes', ['ngRoute'])
       controller: 'homeController',
       controllerAs: 'home'
     })
+    .when('/browse', {
+      templateUrl: 'app/views/pages/request/request_browse.html',
+      controller: 'browseController',
+      controllerAs: 'browse'
+    })
     // Authentication
     .when('/login', {
       templateUrl: 'app/views/pages/login.html',

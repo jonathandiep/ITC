@@ -75,4 +75,57 @@ angular.module('searchCtrl', [])
       });
   };
 
+})
+
+.controller('browseController', function($location, $window, Req) {
+  var vm = this;
+
+  vm.search = function(query) {
+    if (query) {
+      $location.path('/request/search/' + query);
+    } else {
+      $window.alert('Cannot submit an empty search!');
+    }
+  }
+
+  Req.browse()
+    .then(function(data) {
+      var results = data.data;
+      console.log(data.data);
+      vm.browseData = results;
+      var a = new Array();
+      for(let i = 0; i < results.length; i++) {
+        a[i] = null;
+        Req.countReqBids(results[i].idServiceRequest)
+          .then(function(data) {
+            a[i] = data.data.count;
+          });
+      }
+      vm.offers = a;
+
+    });
+
+  /*
+  vm.display = function() {
+    var query = $routeParams.query;
+    vm.query = query;
+    Req.search(query)
+      .then(function(data) {
+        console.log(data.data);
+        var results = data.data;
+        vm.searchData = results;
+        var a = new Array();
+        for(let i = 0; i < results.length; i++) {
+          a[i] = null;
+          Req.countReqBids(results[i].idServiceRequest)
+            .then(function(data) {
+              a[i] = data.data.count;
+            });
+        }
+        vm.offers = a;
+      })
+  }
+
+  vm.display();
+  */
 });

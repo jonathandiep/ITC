@@ -1,0 +1,41 @@
+<div id="search-requests-panel" class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Browse Requests</strong>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline" ng-submit="search.search(search.query)">
+        <div class="form-group">
+          <input type="search" class="form-control" placeholder="Find client requests" ng-model="search.query">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </form>
+    </div>
+    <!-- Search results -->
+    <table class="table table-responsive table-hover" ng-if="browse.browseData.length > 0">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Client</th>
+          <th class="text-center"># of Offers</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="result in browse.browseData">
+          <td>{{result.serviceTitle}}</td>
+          <td><a ng-href="/user/view/{{result.clientID}}">{{result.firstName + ' ' + result.lastName}}</a></td>
+          <td class="text-center">{{browse.offers[$index]}}</td>
+          <td></td>
+          <td>
+            <a ng-href="/request/search/bid/{{result.idServiceRequest}}">View details</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p ng-if="search.searchData.length === 0">No results for "{{search.query}}"</p>
+  </div>
+</div>

@@ -45,5 +45,9 @@ angular.module('reqService', [])
     return $http.get('/api/requests?q=' + query);
   };
 
+  reqFactory.browse = function() {
+    return $http.get('/api/requests');
+  };
+
   return reqFactory;
 });
