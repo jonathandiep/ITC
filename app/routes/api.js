@@ -53,10 +53,22 @@ module.exports = function(app, express) {
 
       });
 
-    res.json({ message: 'User created!' });
+      res.json({
+        success: true,
+        message: 'User created!'
+      });
     });
 
   });
+
+  // used to get a user (GET /api/users/:user_id)
+  api.get('/users/:user_id', (req, res) => {
+    User.findById(req.params.user_id, (err, user) => {
+      if (err) res.send(err);
+
+      res.json(user);
+    });
+  })
 
   api.get('/profile/:userID', (req, res) => {
     var id = req.params.userID;
@@ -84,7 +96,7 @@ module.exports = function(app, express) {
       });
     } else {
       pool.getConnection((err, connection) => {
-        connection.query('SELECT * FROM ServiceRequest', (err, results) => {
+        connection.query("SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE serviceStatus = 'Open'", (err, results) => {
           if (err) throw err;
           connection.release();
           res.send(results);
@@ -120,6 +132,20 @@ module.exports = function(app, express) {
     });
   });
 
+  api.get('/requests/count/:request_id', (req, res) => {
+    var id = req.params.request_id;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT COUNT(*) AS C FROM Bid WHERE serviceRequestID = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.json({
+          count: result[0]["C"]
+        });
+      });
+    });
+  });
+
 
   // GET /reviews?reviewer=reviewerID&reviewee=revieweeID => get reviews (params: reviewerID & revieweeID)
   api.get('/reviews/:revieweeID', (req, res) => {
@@ -138,7 +164,7 @@ module.exports = function(app, express) {
     if (req.params.revieweeID) {
       pool.getConnection((err, connection) => {
         var reviewee = req.params.revieweeID;
-        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.revieweeID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
+        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.reviewerID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
         connection.query(sqlQuery, [reviewee], (err, results) => {
           if (err) throw err;
           connection.release();
@@ -311,19 +337,7 @@ module.exports = function(app, express) {
       });
     });
 
-  api.get('/requests/count/:request_id', (req, res) => {
-    var id = req.params.request_id;
-    pool.getConnection((err, connection) => {
-      var sqlQuery = "SELECT COUNT(*) AS C FROM Bid WHERE serviceRequestID = ?";
-      connection.query(sqlQuery, [id], (err, result) => {
-        if (err) throw err;
-        connection.release();
-        res.json({
-          count: result[0]["C"]
-        });
-      });
-    });
-  });
+
 
   // API for bids/quotes
   // DB table: Bid
@@ -567,14 +581,7 @@ module.exports = function(app, express) {
   // routes that end in /api/users/:user_id
   api.route('/users/:user_id')
 
-    // used to get a user (GET /api/users/:user_id)
-    .get((req, res) => {
-      User.findById(req.params.user_id, (err, user) => {
-        if (err) res.send(err);
 
-        res.json(user);
-      });
-    })
 
     // used to update a user (PUT /api/users/:user_id)
     .put((req, res) => {

@@ -14,7 +14,7 @@ angular.module('serviceReqCtrl', [])
 
 })
 
-.controller('getServReqController', function($routeParams, Req) {
+.controller('getServReqController', function($routeParams, $window, Req) {
   var vm = this;
 
   vm.getServReq = function() {
@@ -71,6 +71,10 @@ angular.module('serviceReqCtrl', [])
   };
 
   vm.getServReq();
+
+  vm.back = function() {
+    $window.history.back();
+  }
 
 })
 

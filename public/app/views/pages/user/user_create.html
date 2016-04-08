@@ -2,6 +2,9 @@
   <form id="signup-form" ng-submit="user.saveUser()">
     <div class="panel panel-default">
       <div class="panel-body">
+        <div ng-if="user.message">
+          <p style="color: red">{{user.message}}</p>
+        </div>
         <!-- First name -->
         <div class="form-group">
           <label for="first_name" class="control-label">
@@ -29,13 +32,6 @@
             <strong>Password</strong>
           </label>
           <input type="password" class="form-control input-lg" ng-model="user.userData.password" required>
-        </div>
-        <!-- Confirm password -->
-        <div class="form-group">
-          <label for="confirm_password" class="control-label">
-            <strong>Confirm password</strong>
-          </label>
-          <input type="password" class="form-control input-lg">
         </div>
         <!-- Sign up button -->
         <button type="submit" class="btn btn-primary btn-block">Sign up</button>

@@ -3,7 +3,14 @@ angular.module('routes', ['ngRoute'])
 .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/views/pages/home.html'
+      templateUrl: 'app/views/pages/home.html',
+      controller: 'homeController',
+      controllerAs: 'home'
+    })
+    .when('/browse', {
+      templateUrl: 'app/views/pages/request/request_browse.html',
+      controller: 'browseController',
+      controllerAs: 'browse'
     })
     // Authentication
     .when('/login', {

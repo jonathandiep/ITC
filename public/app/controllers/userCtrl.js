@@ -13,9 +13,11 @@ angular.module('userCtrl', ['userService'])
 
         // clear the form
         vm.userData = {};
-        $location.path('/login');
-        vm.message = data.message;
-        console.log(data.message);
+        if (data.success) {
+          $location.path('/login');
+        } else {
+          vm.message = data.message;
+        }
       });
   };
 

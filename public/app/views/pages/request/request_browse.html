@@ -1,23 +1,23 @@
 <div id="search-requests-panel" class="container">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <strong>Service Requests - Search Results</strong>
+      <strong>Browse Requests</strong>
     </div>
     <div class="panel-body">
-      <form class="form-inline" ng-submit="search.search(search.query)">
+      <form class="form-inline" ng-submit="browse.search(browse.query)">
         <div class="form-group">
-          <input type="search" class="form-control" placeholder="Find client requests" ng-model="search.query">
+          <input type="search" class="form-control" placeholder="Find client requests" ng-model="browse.query">
         </div>
         <button type="submit" class="btn btn-primary btn-sm">
           <i class="glyphicon glyphicon-search"></i>
         </button>
-        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="search.back()">
+        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="browse.back()">
           <i class="glyphicon glyphicon-chevron-left"></i> Back
         </button>
       </form>
     </div>
     <!-- Search results -->
-    <table class="table table-responsive table-hover" ng-if="search.searchData.length > 0">
+    <table class="table table-responsive table-hover" ng-if="browse.browseData.length > 0">
       <thead>
         <tr>
           <th>Service</th>
@@ -28,10 +28,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="result in search.searchData">
+        <tr ng-repeat="result in browse.browseData">
           <td>{{result.serviceTitle}}</td>
           <td><a ng-href="/user/view/{{result.clientID}}">{{result.firstName + ' ' + result.lastName}}</a></td>
-          <td class="text-center">{{search.offers[$index]}}</td>
+          <td class="text-center">{{browse.offers[$index]}}</td>
           <td></td>
           <td>
             <a ng-href="/request/search/bid/{{result.idServiceRequest}}">View details</a>

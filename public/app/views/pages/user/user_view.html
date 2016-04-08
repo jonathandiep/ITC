@@ -43,7 +43,7 @@
       <div class="media-body">
         <!-- Reviewer's name -->
         <label class="media-heading">
-          <strong>{{review.firstName + ' ' + review.lastName}}</strong> ({{review.reviewAs}})
+          <strong><a ng-href="/user/view/{{review.reviewerID}}"/>{{review.firstName + ' ' + review.lastName}}</a></strong> ({{review.reviewAs}})
         </label>
         <!-- Rating and date -->
         <br>
@@ -53,17 +53,18 @@
         </label>
         <span>{{review.date.substring(0, 10)}}</span>
         <br>
-        <label ng-if="">
+        <label ng-if="review.reviewAs === 'Client'">
           <strong>Service Requested</strong>
         </label>
-        <label>
-          <strong>Provided</strong>
+        <label ng-if="review.reviewAs === 'Provider'">
+          <strong>Service Provided</strong>
         </label>
         <br>
         <span>{{review.serviceTitle}}</span>
         <br>
+        <br>
         <label>
-          <strong>{{review.heading}}</strong>
+          <strong><em>{{review.heading}}</em></strong>
         </label>
         <p>
           {{review.message}}
