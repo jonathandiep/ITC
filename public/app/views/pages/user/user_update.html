@@ -1,4 +1,4 @@
-<form id="update-profile-form">
+<form id="update-profile-form" ng-submit="profile.update()">
   <div class="panel panel-default">
     <div class="panel-heading">
       <strong>Update Profile</strong>
@@ -9,21 +9,42 @@
         <label for="first_name" class="control-label">
           <strong>First name</strong>
         </label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" ng-model="profile.profileData.firstName" required>
       </div>
       <!-- Last name -->
       <div class="form-group">
         <label for="last_name" class="control-label">
           <strong>Last name</strong>
         </label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" ng-model="profile.profileData.lastName" required>
+      </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="control-label">
+          <strong>Email</strong>
+        </label>
+        <input type="text" class="form-control" ng-model="profile.profileData.email" required>
+      </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="password" class="control-label">
+          <strong>Password</strong>
+        </label>
+        <input type="password" class="form-control" ng-model="profile.profileData.password">
+      </div>
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          <strong>Address</strong>
+        </label>
+        <input type="text" class="form-control" ng-model="profile.additionalData.address">
       </div>
       <!-- Phone -->
       <div class="form-group">
         <label for="phone" class="control-label">
           <strong>Phone</strong>
         </label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" ng-model="profile.additionalData.phone">
       </div>
       <!-- Actions -->
       <div class="pull-right">

@@ -10,12 +10,9 @@ angular.module('userService', [])
       return $http.get('/api/users/' + id);
     };
 
-    /*
-    // get all users
-    userFactory.get = function(id) {
-      return $http.get('/api/users/');
+    userFactory.getUserProfile = function(id) {
+      return $http.get('/api/profile/' + id);
     };
-    */
 
     // create a user
     userFactory.create = function(userData) {
@@ -30,6 +27,10 @@ angular.module('userService', [])
     // delete a user
     userFactory.delete = function(id) {
       return $http.delete('/api/users/' + id);
+    };
+
+    userFactory.getReviews = function(id) {
+      return $http.get('/api/reviews/' + id);
     };
 
     // return entire userFactory object
