@@ -1,6 +1,6 @@
 angular.module('dashCtrl', [])
 
-.controller('dashboardController', function($rootScope, Req, Bid) {
+.controller('dashboardController', function($rootScope, $location, $window, Req, Bid) {
   var vm = this;
 
   vm.services = [];
@@ -29,4 +29,19 @@ angular.module('dashCtrl', [])
 
   vm.display();
 
+  // vm.deleteBid()
+  vm.deleteBid = function(bidID) {
+    Bid.deleteBid(bidID)
+      .then(function(data) {
+        vm.display();
+      });
+  };
+
+  vm.search = function(query) {
+    if (query) {
+      $location.path('/request/search/' + query);
+    } else {
+      $window.alert('Cannot submit an empty search!');
+    }
+  }
 });

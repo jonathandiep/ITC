@@ -36,8 +36,13 @@ angular.module('reqService', [])
   };
 
   // changeBidStatus(id) => decline bid
-  reqFactory.changeBidStatus = function(bidID, bidData, servReqID) {
-    return $http.put('/api/bids/' + bidID, bidData, servReqID);
+  reqFactory.changeBidStatus = function(bidID, bidData) {
+    return $http.put('/api/bids/' + bidID, bidData);
+  };
+
+  // search(query) => search for requests based on query
+  reqFactory.search = function(query) {
+    return $http.get('/api/requests?q=' + query);
   };
 
   return reqFactory;

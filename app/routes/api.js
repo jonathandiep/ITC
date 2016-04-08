@@ -63,7 +63,7 @@ module.exports = function(app, express) {
     if (req.query.q) {
       pool.getConnection((err, connection) => {
         var searchQuery = '%' + req.query.q + '%';
-        var sqlQuery = "SELECT * FROM ServiceRequest WHERE serviceTitle LIKE ? OR description LIKE ?";
+        var sqlQuery = "SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE (serviceTitle LIKE ? OR description LIKE ?) AND serviceStatus = 'Open'";
         connection.query(sqlQuery, [searchQuery, searchQuery], (err, results) => {
           if (err) throw err;
           connection.release();
@@ -356,7 +356,7 @@ module.exports = function(app, express) {
     // POST /bids => submit a bid
     .post((req, res) => {
       var service = req.query.service;
-      var provider = req.query.provider;
+      var provider = req.body.provider;
       var priceType = req.body.priceType;
       var priceValue = req.body.priceValue;
       var note = req.body.note;
@@ -382,17 +382,29 @@ module.exports = function(app, express) {
     // GET /bids/:bid_id => get info about a specific bid
     .get((req, res) => {
       var id = req.params.bid_id;
-      var status = req.query.status;
-      console.log(status);
-      pool.getConnection((err, connection) => {
-        var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = ? ";
-        connection.query(sqlQuery, [id, status], (err, result) => {
-          if (err) throw err;
-          connection.release();
-          console.log(result);
-          res.send(result);
+      if (req.query.status) {
+        var status = req.query.status;
+        console.log(status);
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = ? ";
+          connection.query(sqlQuery, [id, status], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            console.log(result);
+            res.send(result);
+          });
         });
-      });
+      } else {
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN ServiceRequest ON Bid.serviceRequestID = ServiceRequest.idServiceRequest WHERE idBid = ? ";
+          connection.query(sqlQuery, [id], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            console.log(result);
+            res.send(result);
+          });
+        });
+      }
 
     })
 
@@ -404,7 +416,8 @@ module.exports = function(app, express) {
       var note = req.body.note;
       var status = req.body.bidStatus;
       if (status === 'Accepted') {
-        var servReqID = req.body.servReqID;
+        var servReqID = req.body.serviceRequestID;
+        console.log('servReqID: ' + servReqID);
         pool.getConnection((err, connection) => {
           var sqlQuery = "UPDATE Bid SET bidStatus = ? WHERE idBid = ?";
           var sqlQuery2 = "UPDATE Bid SET bidStatus = ? WHERE idBid != ? AND serviceRequestID = ?";

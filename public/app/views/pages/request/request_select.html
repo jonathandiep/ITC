@@ -4,7 +4,7 @@
     <div class="panel-heading">
       <strong>Service Request</strong>
       <span class="pull-right">
-        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm">
+        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm" ng-if="servReq.servReqData.clientID === sess.user.id">
           <i class="glyphicon glyphicon-pencil"></i> Edit
         </a>
       </span>
@@ -46,7 +46,7 @@
       </p>
     </div>
     <!-- Available providers -->
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive table-hover" ng-if="servReq.servReqData.clientID === sess.user.id || servReq.servReqData.serviceStatus === 'Closed'">
       <thead>
         <tr>
           <th>Provider</th>

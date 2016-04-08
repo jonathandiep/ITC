@@ -77,13 +77,13 @@
     <strong>Service Bids</strong>
   </div>
   <div class="panel-body">
-    <form class="form-inline">
+    <form class="form-inline" ng-submit="dash.search(dash.query)">
       <div class="form-group">
-        <input type="search" placeholder="Find client requests" class="form-control">
+        <input type="search" placeholder="Find client requests" ng-model="dash.query" class="form-control">
       </div>
-      <a href="/request/search" class="btn btn-primary btn-sm">
+      <button class="btn btn-primary btn-sm">
         <i class="glyphicon glyphicon-search"></i>
-      </a>
+      </button>
     </form>
   </div>
   <table class="table table-hover">
@@ -100,7 +100,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="bid in dash.bids">
-        <td>{{bid.serviceTitle}}</td>
+        <td><a ng-href="/request/view/{{bid.serviceRequestID}}">{{bid.serviceTitle}}</a></td>
         <td><a href="/user/view">{{bid.firstName + ' ' + bid.lastName}}</a></td>
         <td>{{bid.bidDate.substring(0, 10)}}</td>
         <td ng-if="bid.bidStatus === 'Accepted'"><span class="label label-success">{{bid.bidStatus}}</span></td>
@@ -108,9 +108,16 @@
         <td ng-if="bid.bidStatus === 'Pending'"><span class="label label-warning">{{bid.bidStatus}}</span></td>
         <td>${{bid.priceValue.toFixed(2)}}</td>
         <td>{{bid.priceType}}</td>
-        <td>
-          <a href="/offer/update" class="btn btn-primary btn-sm">Update</a>
-          <button type="button" class="btn btn-danger btn-sm">Remove</button>
+        <td ng-if="bid.bidStatus === 'Pending'">
+          <a ng-href="/offer/update/{{bid.idBid}}" class="btn btn-primary btn-sm">Update</a>
+          <button type="button" class="btn btn-danger btn-sm" ng-click="dash.deleteBid(bid.idBid)">Remove</button>
+        </td>
+        <td ng-if="bid.bidStatus === 'Accepted'">
+          <a ng-href="/request/view/{{bid.serviceRequestID}}" class="btn btn-default btn-sm">View</a>
+        </td>
+        <td ng-if="bid.bidStatus === 'Declined'">
+          <a ng-href="/request/view/{{bid.serviceRequestID}}" class="btn btn-default btn-sm">View</a>
+          <button type="button" class="btn btn-danger btn-sm" ng-click="dash.deleteBid(bid.idBid)">Remove</button>
         </td>
       </tr>
     </tbody>

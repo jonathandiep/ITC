@@ -6,6 +6,7 @@ angular.module('app', [
   'userService',
   'bidCtrl',
   'dashCtrl',
+  'searchCtrl',
   'serviceReqCtrl',
   'sessionCtrl',
   'userCtrl'

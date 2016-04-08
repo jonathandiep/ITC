@@ -29,8 +29,10 @@ angular.module('routes', ['ngRoute'])
       templateUrl: 'app/views/pages/user/user_view.html'
     })
     // Offer
-    .when('/offer/update', {
-      templateUrl: 'app/views/pages/offer/offer_update.html'
+    .when('/offer/update/:bid_id', {
+      templateUrl: 'app/views/pages/offer/offer_update.html',
+      controller: 'editBidController',
+      controllerAs: 'bid'
     })
     // Request
     .when('/request/create', {
@@ -38,11 +40,18 @@ angular.module('routes', ['ngRoute'])
       controller: 'submitServReqController',
       controllerAs: 'servReq'
     })
-    .when('/request/search', {
-      templateUrl: 'app/views/pages/request/request_search.html'
+    .when('/request/search/:query', {
+      templateUrl: 'app/views/pages/request/request_search.html',
+      controller: 'searchController',
+      controllerAs: 'search'
     })
     .when('/request/search/view', {
       templateUrl: 'app/views/pages/search/request_select.html'
+    })
+    .when('/request/search/bid/:request_id', {
+      templateUrl: 'app/views/pages/offer/offer_post.html',
+      controller: 'searchBidController',
+      controllerAs: 'search'
     })
     .when('/request/edit/:id', {
       templateUrl: 'app/views/pages/request/request_update.html',
