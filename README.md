@@ -43,12 +43,12 @@ Service providers are registered users who can perform at least the following ta
 Registered users can function as a client and/or a service provider. In other words, they can manage service requests, bid on a service request, manage bids, and write reviews for both types of users.
 
 ## System Architecture and Design
-(https://i.imgur.com/BZAavVA.png)
+![System Architecture](https://i.imgur.com/BZAavVA.png)
 - Node.js is the web server which works with MongoDB and MySQL
 - MVC in AngularJS
 
 ### Database Design
-(http://i.imgur.com/NwRl1Ns.png)
+![Database Design](http://i.imgur.com/NwRl1Ns.png)
 - Display DB model
 - Wanted to segregate senstive user info like email and password and used MongoDB to do that
 - All other data is stored on MySQL
