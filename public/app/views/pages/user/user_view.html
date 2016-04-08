@@ -9,13 +9,13 @@
       </div>
       <div class="media-body">
         <!-- Name -->
-        <h3 class="media-heading">John Doe</h3>
+        <h3 class="media-heading">{{profile.profileData.firstName + ' ' + profile.profileData.lastName}}</h3>
         <br>
         <!-- Email -->
         <label>
           <strong>Email</strong>
         </label>
-        <p>johndoe@email.com</p>
+        <p>{{profile.profileData.email}}</p>
         <!-- Phone -->
         <label>
           <strong>Phone</strong>
@@ -26,9 +26,9 @@
     <hr>
     <!-- User's reviews -->
     <h4>Reviews</h4>
-    <a href="/review/create">Write a review</a>
+    <p ng-if="profile.reviews.length == 0">This user has no reviews :(</p>
     <!-- Review template -->
-    <div class="media">
+    <div class="media" ng-repeat="review in profile.reviews">
       <!-- Reviewer's profile picture -->
       <div class="media-left">
         <a href="#">
@@ -38,7 +38,7 @@
       <div class="media-body">
         <!-- Reviewer's name -->
         <label class="media-heading">
-          <strong>Reviewer's name</strong> (Client or Service Provider)
+          <strong>{{review.firstName + ' ' + review.lastName}}</strong> ({{review.reviewAs}})
         </label>
         <!-- Rating and date -->
         <br>
@@ -49,19 +49,19 @@
           <i class="glyphicon glyphicon-star"></i>
           <i class="glyphicon glyphicon-star"></i>
         </label>
-        <span>01/01/2016</span>
+        <span>{{review.date.substring(0, 10)}}</span>
         <br>
         <label>
           <strong>Service Requested/Provided</strong>
         </label>
         <br>
-        <span>Gardening</span>
+        <span>{{review.serviceTitle}}</span>
         <br>
         <label>
-          <strong>Review heading</strong>
+          <strong>{{review.heading}}</strong>
         </label>
         <p>
-          Minus voluptatibus praesentium omnis officiis odit sunt culpa repellat. Omnis quisquam dolore fugit perferendis illo distinctio ipsa iure.
+          {{review.description}}
         </p>
       </div>
     </div>

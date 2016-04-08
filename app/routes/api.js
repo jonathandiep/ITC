@@ -58,6 +58,18 @@ module.exports = function(app, express) {
 
   });
 
+  api.get('/profile/:userID', (req, res) => {
+    var id = req.params.userID;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT * FROM User WHERE idUser = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.send(result[0]);
+      });
+    });
+  });
+
   // GET /requests?q=searchquery => get all requests (search params here)
   api.get('/requests', (req, res) => {
     if (req.query.q) {
@@ -110,8 +122,9 @@ module.exports = function(app, express) {
 
 
   // GET /reviews?reviewer=reviewerID&reviewee=revieweeID => get reviews (params: reviewerID & revieweeID)
-  api.get('/reviews', (req, res) => {
-    if (req.query.reviewer) {
+  api.get('/reviews/:revieweeID', (req, res) => {
+    /*
+    if (req.body.reviewer) {
       pool.getConnection((err, connection) => {
         var reviewer = req.query.reviewer;
         var sqlQuery = "SELECT * FROM Review WHERE reviewerID = ?";
@@ -121,10 +134,11 @@ module.exports = function(app, express) {
           res.send(results);
         });
       });
-    } else if (req.query.reviewee) {
+      */
+    if (req.params.revieweeID) {
       pool.getConnection((err, connection) => {
-        var reviewee = req.query.reviewee;
-        var sqlQuery = "SELECT * FROM Review WHERE revieweeID = ?";
+        var reviewee = req.params.revieweeID;
+        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.revieweeID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
         connection.query(sqlQuery, [reviewee], (err, results) => {
           if (err) throw err;
           connection.release();

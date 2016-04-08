@@ -7,6 +7,7 @@ angular.module('app', [
   'userService',
   'bidCtrl',
   'dashCtrl',
+  'profileCtrl',
   'reviewCtrl',
   'searchCtrl',
   'serviceReqCtrl',
