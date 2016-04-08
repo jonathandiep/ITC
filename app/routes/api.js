@@ -53,7 +53,7 @@ module.exports = function(app, express) {
 
       });
 
-      res.json({ 
+      res.json({
         success: true,
         message: 'User created!'
       });
@@ -164,7 +164,7 @@ module.exports = function(app, express) {
     if (req.params.revieweeID) {
       pool.getConnection((err, connection) => {
         var reviewee = req.params.revieweeID;
-        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.revieweeID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
+        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.reviewerID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
         connection.query(sqlQuery, [reviewee], (err, results) => {
           if (err) throw err;
           connection.release();
