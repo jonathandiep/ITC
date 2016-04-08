@@ -25,6 +25,9 @@ angular.module('routes', ['ngRoute'])
       controller: 'userCreateController',
       controllerAs: 'user'
     })
+    .when('/profile/edit', {
+      templateUrl: 'app/views/pages/user/user_update.html'
+    })
     .when('/user/view', {
       templateUrl: 'app/views/pages/user/user_view.html'
     })
@@ -51,9 +54,6 @@ angular.module('routes', ['ngRoute'])
     })
     .when('/review/edit', {
       templateUrl: 'app/views/pages/review/review_update.html'
-    })
-    .when('/review/view', {
-      templateUrl: 'app/views/pages/review/review_select.html'
     })
     // Search
     .when('/request/search/view', {

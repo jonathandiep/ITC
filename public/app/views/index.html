@@ -21,7 +21,7 @@
 </head>
 <body ng-app="app" ng-controller="sessionController as sess">
   <!-- Navigation bar -->
-  <nav class="navbar navbar-static-top" ng-class="sess.loggedIn ? 'navbar-inverse' : 'navbar-default'">
+  <nav class="navbar navbar-fixed-top" ng-class="sess.loggedIn ? 'navbar-inverse' : 'navbar-default'">
     <div class="container" ng-if="!sess.loggedIn">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">Brand</a>
@@ -50,12 +50,27 @@
               {{sess.user.firstName + ' ' + sess.user.lastName}} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li class="dropdown-header">For testing purposes</li>
-              <li><a href="/profile">Profile template</a></li>
-              <li><a href="/bidding">Bidding template</a></li>
-              <li><a href="/client/review">User review template</a></li>
+              <li class="dropdown-header">Misc.</li>
               <li><a href="/dashboard">Dashboard</a></li>
-              <li><a href="/request/id/update">Update request template</a></li>
+              <li><a href="/home"></a></li>
+              <li><a href="/login">Log in</a></li>
+              <li class="divider"></li>
+              <!-- Request -->
+              <li class="dropdown-header">Request</li>
+              <li><a href="/request/create">Create request</a></li>
+              <li><a href="/request/search">Search results</a></li>
+              <li><a href="/request/edit">Update request</a></li>
+              <li><a href="/request/view">View request</a></li>
+              <li class="divider"></li>
+              <!-- Review -->
+              <li class="dropdown-header">Review</li>
+              <li><a href="/review/create">Create review</a></li>
+              <li><a href="/user/view">View review</a></li>
+              <li class="divider"></li>
+              <!-- User -->
+              <li class="dropdown-header">User</li>
+              <li><a href="/signup">Create user</a></li>
+              <li><a href="/user/view">View user</a></li>
               <li class="divider"></li>
               <li><a href="#" ng-click="sess.doLogout()">Log out</a></li>
             </ul>
@@ -65,9 +80,7 @@
     </div>
   </nav>
 
-  <main class="container">
-    <div ng-view></div>
-  </main>
+  <div ng-view style="padding-top: 60px"></div>
 
   <!-- Scripts -->
   <script src="../../assets/lib/jquery-2.2.2.js"></script>
