@@ -4,9 +4,9 @@
       <strong>Service Requests - Search Results</strong>
     </div>
     <div class="panel-body">
-      <form class="form-inline">
+      <form class="form-inline" ng-submit="search.search(search.query)">
         <div class="form-group">
-          <input type="search" class="form-control" placeholder="Find client requests">
+          <input type="search" class="form-control" placeholder="Find client requests" ng-model="search.query">
         </div>
         <button type="submit" class="btn btn-primary btn-sm">
           <i class="glyphicon glyphicon-search"></i>
@@ -14,7 +14,7 @@
       </form>
     </div>
     <!-- Search results -->
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive table-hover" ng-if="search.searchData.length > 0">
       <thead>
         <tr>
           <th>Service</th>
@@ -25,16 +25,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Gardening</td>
-          <td><a href="/user/view">Mike Tyson</a></td>
-          <td class="text-center">5</td>
+        <tr ng-repeat="result in search.searchData">
+          <td>{{result.serviceTitle}}</td>
+          <td><a ng-href="/user/view/{{result.clientID}}">{{result.firstName + ' ' + result.lastName}}</a></td>
+          <td class="text-center">{{search.offers[$index]}}</td>
           <td></td>
           <td>
-            <a href="request/search/view">View details</a>
+            <a ng-href="/request/search/bid/{{result.idServiceRequest}}">View details</a>
           </td>
         </tr>
       </tbody>
     </table>
+    <p ng-if="search.searchData.length === 0">No results for "{{search.query}}"</p>
   </div>
 </div>

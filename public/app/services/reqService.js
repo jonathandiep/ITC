@@ -40,5 +40,10 @@ angular.module('reqService', [])
     return $http.put('/api/bids/' + bidID, bidData);
   };
 
+  // search(query) => search for requests based on query
+  reqFactory.search = function(query) {
+    return $http.get('/api/requests?q=' + query);
+  };
+
   return reqFactory;
 });

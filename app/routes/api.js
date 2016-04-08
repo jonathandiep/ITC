@@ -63,7 +63,7 @@ module.exports = function(app, express) {
     if (req.query.q) {
       pool.getConnection((err, connection) => {
         var searchQuery = '%' + req.query.q + '%';
-        var sqlQuery = "SELECT * FROM ServiceRequest WHERE serviceTitle LIKE ? OR description LIKE ?";
+        var sqlQuery = "SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE (serviceTitle LIKE ? OR description LIKE ?) AND serviceStatus = 'Open'";
         connection.query(sqlQuery, [searchQuery, searchQuery], (err, results) => {
           if (err) throw err;
           connection.release();
@@ -246,7 +246,7 @@ module.exports = function(app, express) {
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     pool.getConnection((err, connection) => {
-      var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, status: status, date: date};
+      var post = {clientID: clientID, serviceTitle: serviceTitle, description: description, serviceStatus: status, date: date};
       connection.query("INSERT INTO ServiceRequest SET ?", post, (err, result) => {
         if (err) throw err;
         connection.release();
@@ -267,9 +267,9 @@ module.exports = function(app, express) {
       var id = req.params.request_id;
       var serviceTitle = req.body.serviceTitle;
       var description = req.body.description;
-      var status = req.body.status;
+      var status = req.body.serviceStatus;
       pool.getConnection((err, connection) => {
-        var sqlQuery = "UPDATE ServiceRequest SET serviceTitle = ?, description = ?, status = ? WHERE idServiceRequest = ?";
+        var sqlQuery = "UPDATE ServiceRequest SET serviceTitle = ?, description = ?, serviceStatus = ? WHERE idServiceRequest = ?";
         connection.query(sqlQuery, [serviceTitle, description, status, id], (err, result) => {
           if (err) throw err;
           connection.release();
@@ -326,7 +326,7 @@ module.exports = function(app, express) {
       if (req.query.provider) {
         var provider = req.query.provider;
         pool.getConnection((err, connection) => {
-          var sqlQuery = "SELECT * FROM Bid WHERE providerID = ?";
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN ServiceRequest ON Bid.serviceRequestID = ServiceRequest.idServiceRequest INNER JOIN USER ON ServiceRequest.clientID = User.idUser WHERE providerID = ?";
           connection.query(sqlQuery, [provider], (err, result) => {
             if (err) throw err;
             connection.release();
@@ -356,13 +356,14 @@ module.exports = function(app, express) {
     // POST /bids => submit a bid
     .post((req, res) => {
       var service = req.query.service;
-      var provider = req.query.provider;
+      var provider = req.body.provider;
       var priceType = req.body.priceType;
       var priceValue = req.body.priceValue;
       var note = req.body.note;
       var status = 'Pending';
+      var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
       pool.getConnection((err, connection) => {
-        var post = {serviceRequestID: service, providerID: provider, priceType: priceType, priceValue: priceValue, note: note, status: status};
+        var post = {serviceRequestID: service, providerID: provider, priceType: priceType, priceValue: priceValue, note: note, bidStatus: status, bidDate: date};
         var sqlQuery = "INSERT INTO Bid SET ?";
         connection.query(sqlQuery, post, (err, result) => {
           if (err) throw err;
@@ -378,36 +379,32 @@ module.exports = function(app, express) {
 
   api.route('/bids/:bid_id')
 
-    /*
     // GET /bids/:bid_id => get info about a specific bid
     .get((req, res) => {
       var id = req.params.bid_id;
-      pool.getConnection((err, connection) => {
-        var sqlQuery = "SELECT * FROM Bid WHERE idBid = ?";
-        connection.query(sqlQuery, [id], (err, result) => {
-          if (err) throw err;
-          connection.release();
-          console.log(result[0]);
-          res.send(result[0]);
+      if (req.query.status) {
+        var status = req.query.status;
+        console.log(status);
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = ? ";
+          connection.query(sqlQuery, [id, status], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            console.log(result);
+            res.send(result);
+          });
         });
-      });
-    })
-    */
-
-    // GET /bids/:bid_id => get info about a specific bid
-    .get((req, res) => {
-      var id = req.params.bid_id;
-      var status = req.query.status;
-      console.log(status);
-      pool.getConnection((err, connection) => {
-        var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND status = ? ";
-        connection.query(sqlQuery, [id, status], (err, result) => {
-          if (err) throw err;
-          connection.release();
-          console.log(result);
-          res.send(result);
+      } else {
+        pool.getConnection((err, connection) => {
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN ServiceRequest ON Bid.serviceRequestID = ServiceRequest.idServiceRequest WHERE idBid = ? ";
+          connection.query(sqlQuery, [id], (err, result) => {
+            if (err) throw err;
+            connection.release();
+            console.log(result);
+            res.send(result);
+          });
         });
-      });
+      }
 
     })
 
@@ -417,15 +414,16 @@ module.exports = function(app, express) {
       var priceType = req.body.priceType;
       var priceValue = req.body.priceValue;
       var note = req.body.note;
-      var status = req.body.status;
+      var status = req.body.bidStatus;
       if (status === 'Accepted') {
+        var servReqID = req.body.serviceRequestID;
+        console.log('servReqID: ' + servReqID);
         pool.getConnection((err, connection) => {
-          var sqlQuery = "UPDATE Bid SET status = ? WHERE idBid = ?";
-          var sqlQuery2 = "UPDATE Bid SET status = ? WHERE idBid != ?";
+          var sqlQuery = "UPDATE Bid SET bidStatus = ? WHERE idBid = ?";
+          var sqlQuery2 = "UPDATE Bid SET bidStatus = ? WHERE idBid != ? AND serviceRequestID = ?";
           connection.query(sqlQuery, ['Accepted', id], (err, result) => {
             if (err) throw err;
-            console.log(result);
-            connection.query(sqlQuery2, ['Declined', id], (err, result) => {
+            connection.query(sqlQuery2, ['Declined', id, servReqID], (err, result) => {
               if (err) throw err;
               connection.release();
               res.json({
@@ -437,7 +435,7 @@ module.exports = function(app, express) {
         });
       } else {
         pool.getConnection((err, connection) => {
-          var sqlQuery = "UPDATE Bid SET priceType = ?, priceValue = ?, note = ?, status = ? WHERE idBid = ?";
+          var sqlQuery = "UPDATE Bid SET priceType = ?, priceValue = ?, note = ?, bidStatus = ? WHERE idBid = ?";
           connection.query(sqlQuery, [priceType, priceValue, note, status, id], (err, result) => {
             if (err) throw err;
             connection.release();

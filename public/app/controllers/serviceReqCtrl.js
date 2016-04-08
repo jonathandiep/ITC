@@ -23,9 +23,10 @@ angular.module('serviceReqCtrl', [])
       .success(function(data) {
         //console.log(data);
         vm.servReqData = data;
-        if (vm.servReqData.status === 'Open') {
+        if (vm.servReqData.serviceStatus === 'Open') {
           Req.getBids(id, 'Pending')
             .success(function(data) {
+              console.log(data);
               vm.bidData = data;
             });
         } else {
@@ -43,35 +44,26 @@ angular.module('serviceReqCtrl', [])
   //   - change request status to closed
   //   - change bid status to Accepted, all other bid status for the same service to Rejected
   vm.acceptBid = function(bid) {
-    bid.status = 'Accepted';
-    Req.changeBidStatus(bid.idBid, bid)
+    bid.bidStatus = 'Accepted';
+    Req.changeBidStatus(bid.idBid, bid, $routeParams.id)
       .success(function(data) {
         console.log('Accepted');
       });
     var id = $routeParams.id;
-    vm.servReqData.status = 'Closed';
+    vm.servReqData.serviceStatus = 'Closed';
     Req.editReq(id, vm.servReqData)
       .success(function(data) {
         console.log(data.message);
       });
-    /*
-    vm.editServReq = function() {
-      var id = $routeParams.id;
-      vm.servReqData.status = vm.selected.value;
-      Req.editReq(id, vm.servReqData)
-        .success(function(data) {
-          console.log(data.message);
-        });
-    };
-    */
+
     vm.getServReq();
   };
 
   // vm.rejectBid(servReqID, bidID) => reject bid
   //  - change bid status to Rejected
   vm.rejectBid = function(bid) {
-    bid.status = 'Declined';
-    Req.changeBidStatus(bid.idBid, bid)
+    bid.bidStatus = 'Declined';
+    Req.changeBidStatus(bid.idBid, bid, $routeParams.id)
       .success(function(data) {
         console.log('Declined');
       });
@@ -82,7 +74,7 @@ angular.module('serviceReqCtrl', [])
 
 })
 
-.controller('editServReqController', function($routeParams, Req) {
+.controller('editServReqController', function($routeParams, $location, Req) {
   var vm = this;
 
   vm.getServReq = function() {
@@ -90,7 +82,7 @@ angular.module('serviceReqCtrl', [])
     Req.getReq(id)
       .success(function(data) {
         vm.servReqData = data;
-        vm.selected = vm.servReqData.status === 'Open' ? vm.options[0] : vm.options[1];
+        vm.selected = vm.servReqData.serviceStatus === 'Open' ? vm.options[0] : vm.options[1];
       });
   };
 
@@ -109,11 +101,12 @@ angular.module('serviceReqCtrl', [])
 
   vm.editServReq = function() {
     var id = $routeParams.id;
-    vm.servReqData.status = vm.selected.value;
+    vm.servReqData.serviceStatus = vm.selected.value;
     Req.editReq(id, vm.servReqData)
       .success(function(data) {
         console.log(data.message);
       });
+    $location.path('/request/view/' + id);
   };
 
 

@@ -9,14 +9,14 @@
         <label for="service">
           <strong>Service</strong>
         </label>
-        <p>{{bid.bidData.serviceTitle}}</p>
+        <p>{{search.service.serviceTitle}}</p>
       </div>
       <!-- Posting date -->
       <div class="col-sm-4">
         <label for="posting_date">
           <strong>Posting Date</strong>
         </label>
-        <p>{{bid.bidData.date.substring(0, 10)}}</p>
+        <p>{{search.service.date.substring(0, 10)}}</p>
       </div>
       <!-- Status -->
       <div class="col-sm-4">
@@ -32,7 +32,7 @@
       <strong>Description</strong>
     </label>
     <p>
-      {{bid.bidData.description}}
+      {{search.service.description}}
     </p>
     <br>
     <form class="form">
@@ -44,7 +44,7 @@
         <div class="row">
           <!-- Price Rate -->
           <div class="col-sm-6">
-            <select name="price_type" class="form-control" ng-model="bid.selected" ng-options="option.name for option in bid.options">
+            <select name="price_type" class="form-control" ng-model="search.selected" ng-options="option.name for option in search.options">
               <!--
               <option value="fixed">Fixed</option>
               <option value="hourly">Hourly</option>
@@ -56,7 +56,7 @@
           <div class="col-sm-6">
             <div class="input-group">
               <span class="input-group-addon">$</span>
-              <input type="text" name="price_amount" pattern="[0-9]+([\.][0-9]+)?" class="form-control" ng-model="bid.bidData.priceValue" required>
+              <input type="text" name="price_amount" pattern="[0-9]+([\.][0-9]+)?" class="form-control" ng-model="search.formData.priceValue" required>
             </div>
           </div>
         </div>
@@ -66,11 +66,11 @@
         <label for="message" class="control-label">
           <strong>Message</strong>
         </label>
-        <textarea name="message" rows="4" class="form-control" ng-model="bid.bidData.note" required></textarea>
+        <textarea name="message" rows="4" class="form-control" ng-model="search.formData.note" required></textarea>
       </div>
       <!-- Place bid button -->
-      <button class="btn btn-primary btn-primary pull-right" ng-click="bid.editBid()">
-        <i class="glyphicon glyphicon-pencil"></i> Update offer
+      <button class="btn btn-primary btn-primary pull-right" ng-click="search.postBid(search.service.idServiceRequest, sess.user.id)">
+        <i class="glyphicon glyphicon-pencil"></i> Post offer
       </button>
     </form>
   </div>

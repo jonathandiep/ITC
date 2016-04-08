@@ -4,7 +4,7 @@
     <div class="panel-heading">
       <strong>Service Request</strong>
       <span class="pull-right">
-        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm">
+        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm" ng-if="servReq.servReqData.clientID === sess.user.id">
           <i class="glyphicon glyphicon-pencil"></i> Edit
         </a>
       </span>
@@ -31,8 +31,8 @@
             <strong>Status</strong>
           </label>
           <p>
-            <span class="label label-success" ng-if="servReq.servReqData.status === 'Open'">Open</span>
-            <span class="label label-danger"  ng-if="servReq.servReqData.status !== 'Open'">Closed</span>
+            <span class="label label-success" ng-if="servReq.servReqData.serviceStatus === 'Open'">Open</span>
+            <span class="label label-danger"  ng-if="servReq.servReqData.serviceStatus !== 'Open'">Closed</span>
           </p>
         </div>
       </div>
@@ -46,7 +46,7 @@
       </p>
     </div>
     <!-- Available providers -->
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive table-hover" ng-if="servReq.servReqData.clientID === sess.user.id || servReq.servReqData.serviceStatus === 'Closed'">
       <thead>
         <tr>
           <th>Provider</th>
@@ -62,7 +62,7 @@
           <td class="col-sm-1">{{bid.priceType}}</td>
           <td class="col-sm-1">${{bid.priceValue.toFixed(2)}}</td>
           <td class="col-sm-6">{{bid.note}}</td>
-          <td class="col-sm-2" ng-if="bid.status === 'Pending'">
+          <td class="col-sm-2" ng-if="bid.bidStatus === 'Pending'">
             <button type="button" class="btn btn-success btn-sm" ng-click="servReq.acceptBid(bid)">
               <i class="glyphicon glyphicon-ok"></i>
             </button>
@@ -70,7 +70,7 @@
               <i class="glyphicon glyphicon-remove"></i>
             </button>
           </td>
-          <td class="col-sm-2"><span class="label label-success" ng-if="bid.status === 'Accepted'">Accepted</span></td>
+          <td class="col-sm-2"><span class="label label-success" ng-if="bid.bidStatus === 'Accepted'">Accepted</span></td>
         </tr>
       </tbody>
     </table>
