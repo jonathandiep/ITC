@@ -38,7 +38,7 @@
       {{search.service.description}}
     </p>
     <br>
-    <form class="form" ng-if="sess.loggedIn">
+    <form class="form" ng-if="sess.loggedIn && sess.user.id !== search.service.clientID">
       <!-- Price -->
       <div class="form-group">
         <label for="price" class="control-label">
