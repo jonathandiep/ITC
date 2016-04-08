@@ -58,6 +58,18 @@ module.exports = function(app, express) {
 
   });
 
+  api.get('/profile/:userID', (req, res) => {
+    var id = req.params.userID;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT * FROM User WHERE idUser = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.send(result[0]);
+      });
+    });
+  });
+
   // GET /requests?q=searchquery => get all requests (search params here)
   api.get('/requests', (req, res) => {
     if (req.query.q) {
@@ -85,7 +97,7 @@ module.exports = function(app, express) {
   api.get('/requests/:request_id', (req, res) => {
     pool.getConnection((err, connection) => {
       var requestID = req.params.request_id;
-      var sqlQuery = "SELECT * FROM ServiceRequest WHERE idServiceRequest = ?";
+      var sqlQuery = "SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE idServiceRequest = ?";
       connection.query(sqlQuery, [requestID], (err, results) => {
         if (err) throw err;
         connection.release();
@@ -110,8 +122,9 @@ module.exports = function(app, express) {
 
 
   // GET /reviews?reviewer=reviewerID&reviewee=revieweeID => get reviews (params: reviewerID & revieweeID)
-  api.get('/reviews', (req, res) => {
-    if (req.query.reviewer) {
+  api.get('/reviews/:revieweeID', (req, res) => {
+    /*
+    if (req.body.reviewer) {
       pool.getConnection((err, connection) => {
         var reviewer = req.query.reviewer;
         var sqlQuery = "SELECT * FROM Review WHERE reviewerID = ?";
@@ -121,10 +134,11 @@ module.exports = function(app, express) {
           res.send(results);
         });
       });
-    } else if (req.query.reviewee) {
+      */
+    if (req.params.revieweeID) {
       pool.getConnection((err, connection) => {
-        var reviewee = req.query.reviewee;
-        var sqlQuery = "SELECT * FROM Review WHERE revieweeID = ?";
+        var reviewee = req.params.revieweeID;
+        var sqlQuery = "SELECT * FROM Review LEFT JOIN USER ON Review.revieweeID = User.idUser INNER JOIN ServiceRequest ON Review.serviceRequestID = ServiceRequest.idServiceRequest WHERE revieweeID = ?";
         connection.query(sqlQuery, [reviewee], (err, results) => {
           if (err) throw err;
           connection.release();
@@ -331,18 +345,16 @@ module.exports = function(app, express) {
             if (err) throw err;
             connection.release();
             res.send(result);
-            console.log(result);
           });
         });
       } else if (req.query.service) {
         var service = req.query.service;
         pool.getConnection((err, connection) => {
-          var sqlQuery = "SELECT * FROM Bid WHERE serviceRequestID = ?";
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = 'Accepted'";
           connection.query(sqlQuery, [service], (err, result) => {
             if (err) throw err;
             connection.release();
-            res.send(result);
-            console.log(result);
+            res.send(result[0]);
           });
         });
       } else {
@@ -368,7 +380,6 @@ module.exports = function(app, express) {
         connection.query(sqlQuery, post, (err, result) => {
           if (err) throw err;
           connection.release();
-          console.log(result);
           res.json({
             success: true,
             message: 'Bid posted.'
@@ -384,13 +395,11 @@ module.exports = function(app, express) {
       var id = req.params.bid_id;
       if (req.query.status) {
         var status = req.query.status;
-        console.log(status);
         pool.getConnection((err, connection) => {
           var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = ? ";
           connection.query(sqlQuery, [id, status], (err, result) => {
             if (err) throw err;
             connection.release();
-            console.log(result);
             res.send(result);
           });
         });
@@ -400,7 +409,6 @@ module.exports = function(app, express) {
           connection.query(sqlQuery, [id], (err, result) => {
             if (err) throw err;
             connection.release();
-            console.log(result);
             res.send(result);
           });
         });
@@ -417,7 +425,6 @@ module.exports = function(app, express) {
       var status = req.body.bidStatus;
       if (status === 'Accepted') {
         var servReqID = req.body.serviceRequestID;
-        console.log('servReqID: ' + servReqID);
         pool.getConnection((err, connection) => {
           var sqlQuery = "UPDATE Bid SET bidStatus = ? WHERE idBid = ?";
           var sqlQuery2 = "UPDATE Bid SET bidStatus = ? WHERE idBid != ? AND serviceRequestID = ?";
@@ -455,7 +462,6 @@ module.exports = function(app, express) {
         connection.query("DELETE FROM Bid WHERE idBid = ?", [id], (err, results) => {
           if (err) throw err;
           connection.release();
-          console.log(results);
           res.json({
             success: true,
             message: 'Bid deleted.'
@@ -474,13 +480,16 @@ module.exports = function(app, express) {
 
   // POST /reviews => submit a review
   api.post('/reviews', (req, res) => {
-    var reviewer = req.query.reviewer;
-    var reviewee = req.query.reviewee;
+    var reqID = req.body.reqID;
+    var reviewAs = req.body.reviewAs;
+    var reviewer = req.body.reviewer;
+    var reviewee = req.body.reviewee;
     var rating = req.body.rating;
+    var heading = req.body.heading;
     var message = req.body.message;
     var reviewDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
     pool.getConnection((err, connection) => {
-      var post = {reviewerID: reviewer, revieweeID: reviewee, rating: rating, message: message, reviewDate: reviewDate};
+      var post = {serviceRequestID: reqID, reviewAs: reviewAs, reviewerID: reviewer, revieweeID: reviewee, rating: rating, heading: heading, message: message, reviewDate: reviewDate};
       connection.query("INSERT INTO Review SET ?", post, (err, result) => {
         if (err) throw err;
         connection.release();
@@ -488,6 +497,19 @@ module.exports = function(app, express) {
           success: true,
           message: 'Review submitted!'
         });
+      });
+    });
+  });
+
+  // GET /reviews/:review_id => returns total amount of reviews and avg of a review.
+  api.get('/reviews/stats/:reviewee_id', (req, res) => {
+    var revieweeID = req.params.reviewee_id;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT COUNT(*) AS total, AVG(rating) AS avg FROM Review WHERE revieweeID = ?";
+      connection.query(sqlQuery, [revieweeID], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.send(result[0]);
       });
     });
   });
@@ -568,8 +590,23 @@ module.exports = function(app, express) {
         // save the user
         user.save((err) => {
           if (err) res.send(err);
+        });
 
-          res.json({ message: 'User updated!' });
+      });
+      pool.getConnection((err, connection) => {
+        var id = req.params.user_id;
+        var firstName = req.body.firstName;
+        var lastName = req.body.lastName;
+        var address = req.body.address;
+        var phone = req.body.phone;
+        var sqlQuery = "UPDATE User SET firstName = ?, lastName = ?, address = ?, phone = ? WHERE idUser = ?";
+        connection.query(sqlQuery, [firstName, lastName, address, phone, id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'User updated!'
+          });
         });
       });
     })
