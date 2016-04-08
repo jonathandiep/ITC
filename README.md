@@ -43,27 +43,22 @@ Service providers are registered users who can perform at least the following ta
 Registered users can function as a client and/or a service provider. In other words, they can manage service requests, bid on a service request, manage bids, and write reviews for both types of users.
 
 ## System Architecture and Design
+![System Architecture](https://i.imgur.com/BZAavVA.png)
+- Node.js is the web server which works with MongoDB and MySQL
+- MVC in AngularJS
 
 ### Database Design
-
-
-
-login function uses jsonwebtokens
-- read up on why jwts are better than cookies
-- backend database uses mongoDB
-  - passwords are hashed -> can't view passwords super secure ooohhhh
-
-write about:
-- npm modules used
-- angular
-  - how views are updated, how data gets posted
-  - talk about magic of angular
-- how routing works back-end and front-end
-APIs will need its own section
-- REST APIs for everythang
-- Authentication
+![Database Design](http://i.imgur.com/NwRl1Ns.png)
+- Display DB model
+- Wanted to segregate senstive user info like email and password and used MongoDB to do that
+- All other data is stored on MySQL
 
 ## Technical Documentation
+- npm modules used (bcrypt-nodejs, body-parser, express, jsonwebtokens, mongoose, morgan, mysql)
+- Authentication
+- REST APIs created with express
+- angular: views are updated by making HTTP calls to the APIs
+- data is passed in json and angular automatically updates views
 
 ## User Interface
 This section briefly explains the
@@ -178,11 +173,3 @@ The user can update their bids (if the bid is still pending) by navigating to th
 ### Writing a review to a client
 
 ### Writing a review to a service provider
-
-
-
-
-
-
-
-
