@@ -62,14 +62,14 @@ Node.js has a package manager called Node Package Manager. We have used the foll
   6. [morgan](https://www.npmjs.com/package/morgan)
   7. [mysql](https://www.npmjs.com/package/mysql)
 
-### Authentication
+### Authentication and Security
+Authentication is performed using Node.js and MongoDB. During registration, passwords are encrypted using bcrypt, one of the best password hashing algorithms, so that our users' passwords are safe from hackers. Our program also utilizes JSON Web Tokens (JWT) for session management, which have many benefits over cookies. JWTs prevents cross-domain (CORS) issues and cross site request forgery (CSRF). JWTs are signed tokens that are stateless and are stored only on the client side - freeing up space in the back-end and allowing ease of scaling.
 
 ### REST APIs
-- REST APIs created with express
+The back-end consists of REST APIs that allow HTTP methods to GET, POST, PUT, and DELETE calls. The REST API in this project was developed with the express framework. Some API endpoints require authentication, especially many of our POST routes. This helps keep our data intact and prevents malicious users from sending data.
 
-### Angular
-- angular: views are updated by making HTTP calls to the APIs
-- data is passed in json and angular automatically updates views
+### AngularJS
+Because we have set up a REST API back-end, we need something on the front-end to make HTTP requests. This particular project utilizes Angular, which makes calling HTTP request easy as it will automatically update data with its two-way binding. Angular allows the project to be built like a Single Page Application (SPA) by providing front-end routing.
 
 ## User Interface
 This section briefly explains the
