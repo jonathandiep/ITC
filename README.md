@@ -80,16 +80,16 @@ Users will log in using their email and password.
 When users log in, they will be directed to their dashboard displaying the following features:
 
 1. Profile information
-..1. Profile picture
-..2. First name
-..- Last name
-..- Email
-..- Address
-..- Phone
+  1.1. Profile picture
+  2. First name
+  3. Last name
+  4. Email
+  5. Address
+  6. Phone
 
 2. User's statistics
-..- Number of Reviews
-..- Overall Rating
+  1. Number of Reviews
+  2. Overall Rating
 
 3. Service Requests
 Each service request have the following information:
