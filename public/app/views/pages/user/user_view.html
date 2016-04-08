@@ -16,11 +16,16 @@
           <strong>Email</strong>
         </label>
         <p>{{profile.profileData.email}}</p>
+        <!-- Address -->
+        <label ng-if="profile.additionalData.address">
+          <strong>Address</strong>
+        </label>
+        <p ng-if="profile.additionalData.address">{{profile.additionalData.address}}</p>
         <!-- Phone -->
-        <label>
+        <label ng-if="profile.additionalData.phone">
           <strong>Phone</strong>
         </label>
-        <p>(000) 000-0000</p>
+        <p ng-if="profile.additionalData.phone">{{profile.additionalData.phone}}</p>
       </div>
     </div>
     <hr>
@@ -28,7 +33,7 @@
     <h4>Reviews</h4>
     <p ng-if="profile.reviews.length == 0">This user has no reviews :(</p>
     <!-- Review template -->
-    <div class="media" ng-repeat="review in profile.reviews">
+    <div class="media" ng-repeat="review in profile.reviews track by $index">
       <!-- Reviewer's profile picture -->
       <div class="media-left">
         <a href="#">
@@ -42,17 +47,17 @@
         </label>
         <!-- Rating and date -->
         <br>
+        {{review.rating}}
         <label class="rating">
-          <i class="glyphicon glyphicon-star"></i>
-          <i class="glyphicon glyphicon-star"></i>
-          <i class="glyphicon glyphicon-star"></i>
-          <i class="glyphicon glyphicon-star"></i>
           <i class="glyphicon glyphicon-star"></i>
         </label>
         <span>{{review.date.substring(0, 10)}}</span>
         <br>
+        <label ng-if="">
+          <strong>Service Requested</strong>
+        </label>
         <label>
-          <strong>Service Requested/Provided</strong>
+          <strong>Provided</strong>
         </label>
         <br>
         <span>{{review.serviceTitle}}</span>
@@ -61,7 +66,7 @@
           <strong>{{review.heading}}</strong>
         </label>
         <p>
-          {{review.description}}
+          {{review.message}}
         </p>
       </div>
     </div>

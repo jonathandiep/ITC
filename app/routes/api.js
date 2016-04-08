@@ -345,7 +345,6 @@ module.exports = function(app, express) {
             if (err) throw err;
             connection.release();
             res.send(result);
-            console.log(result);
           });
         });
       } else if (req.query.service) {
@@ -356,7 +355,6 @@ module.exports = function(app, express) {
             if (err) throw err;
             connection.release();
             res.send(result[0]);
-            console.log(result);
           });
         });
       } else {
@@ -382,7 +380,6 @@ module.exports = function(app, express) {
         connection.query(sqlQuery, post, (err, result) => {
           if (err) throw err;
           connection.release();
-          console.log(result);
           res.json({
             success: true,
             message: 'Bid posted.'
@@ -398,13 +395,11 @@ module.exports = function(app, express) {
       var id = req.params.bid_id;
       if (req.query.status) {
         var status = req.query.status;
-        console.log(status);
         pool.getConnection((err, connection) => {
           var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = ? ";
           connection.query(sqlQuery, [id, status], (err, result) => {
             if (err) throw err;
             connection.release();
-            console.log(result);
             res.send(result);
           });
         });
@@ -414,7 +409,6 @@ module.exports = function(app, express) {
           connection.query(sqlQuery, [id], (err, result) => {
             if (err) throw err;
             connection.release();
-            console.log(result);
             res.send(result);
           });
         });
@@ -431,7 +425,6 @@ module.exports = function(app, express) {
       var status = req.body.bidStatus;
       if (status === 'Accepted') {
         var servReqID = req.body.serviceRequestID;
-        console.log('servReqID: ' + servReqID);
         pool.getConnection((err, connection) => {
           var sqlQuery = "UPDATE Bid SET bidStatus = ? WHERE idBid = ?";
           var sqlQuery2 = "UPDATE Bid SET bidStatus = ? WHERE idBid != ? AND serviceRequestID = ?";
@@ -469,7 +462,6 @@ module.exports = function(app, express) {
         connection.query("DELETE FROM Bid WHERE idBid = ?", [id], (err, results) => {
           if (err) throw err;
           connection.release();
-          console.log(results);
           res.json({
             success: true,
             message: 'Bid deleted.'
@@ -585,8 +577,23 @@ module.exports = function(app, express) {
         // save the user
         user.save((err) => {
           if (err) res.send(err);
+        });
 
-          res.json({ message: 'User updated!' });
+      });
+      pool.getConnection((err, connection) => {
+        var id = req.params.user_id;
+        var firstName = req.body.firstName;
+        var lastName = req.body.lastName;
+        var address = req.body.address;
+        var phone = req.body.phone;
+        var sqlQuery = "UPDATE User SET firstName = ?, lastName = ?, address = ?, phone = ? WHERE idUser = ?";
+        connection.query(sqlQuery, [firstName, lastName, address, phone, id], (err, result) => {
+          if (err) throw err;
+          connection.release();
+          res.json({
+            success: true,
+            message: 'User updated!'
+          });
         });
       });
     })

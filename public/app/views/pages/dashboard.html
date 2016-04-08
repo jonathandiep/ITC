@@ -15,10 +15,11 @@
               <img src="http://placehold.it/96x96" alt="User's profile picture" class="media-object img-rounded">
             </div>
             <div class="media-body">
-              <h4 class="media-heading">{{sess.user.firstName + ' ' + sess.user.lastName}}</h4>
+              <h4 class="media-heading">{{dash.profile.firstName + ' ' + dash.profile.lastName}}</h4>
               <ul class="list-unstyled">
                 <li><strong>Email</strong>: {{sess.user.email}}</li>
-                <li><strong>Phone</strong>: (000) 000-0000</li>
+                <li ng-if="dash.profile.address"><strong>Address</strong>: {{dash.profile.address}}</li>
+                <li ng-if="dash.profile.phone"><strong>Phone</strong>: {{dash.profile.phone}}</li>
               </ul>
             </div>
           </div>

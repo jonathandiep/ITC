@@ -26,7 +26,9 @@ angular.module('routes', ['ngRoute'])
       controllerAs: 'user'
     })
     .when('/profile/edit/:user_id', {
-      templateUrl: 'app/views/pages/user/user_update.html'
+      templateUrl: 'app/views/pages/user/user_update.html',
+      controller: 'editProfileController',
+      controllerAs: 'profile'
     })
     .when('/user/view/:user_id', {
       templateUrl: 'app/views/pages/user/user_view.html',
