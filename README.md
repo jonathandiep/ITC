@@ -1,12 +1,11 @@
 # Software Documentation
 This document explains and illustrates characteristics and capabilities of the system, covering into the following topics:
 
-1. [System Requirements](#system-requirements)
+1. [Requirements](#requirements)
 2. [System Architecture and Design](#architecture-and-design)
 3. [Technical Documentation](#technical-documentation)
-4. [User](#user)
 
-## System Requirements
+## Requirements
 Design and develop a website to allow people to post their service requests and allow service providers to bid on the services. The website is free to both clients and service providers and is not involved with (making or receiving) payments for the services. The key requirements of the website are described below.
 
 ### User
@@ -45,14 +44,7 @@ Registered users can function as a client and/or a service provider. In other wo
 
 ## System Architecture and Design
 
-## Technical Features
-
-## User
-
-
-
-
-
+### Database Design
 
 
 
@@ -67,7 +59,42 @@ write about:
   - how views are updated, how data gets posted
   - talk about magic of angular
 - how routing works back-end and front-end
-
 APIs will need its own section
 - REST APIs for everythang
 - Authentication
+
+## Technical Documentation
+
+## User Interface
+
+### Home page
+
+### Sign up page
+
+### Log in page
+
+### Dashboard
+
+### Update profile
+
+### Create a new service request
+
+### Update a service request
+
+### Close a service request
+
+### Bid on a service request
+
+### Update a bid on a service request
+
+### Writing a review to a client
+
+### Writing a review to a service provider
+
+
+
+
+
+
+
+
