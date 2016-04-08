@@ -2,10 +2,9 @@
 This document explains and illustrates characteristics and capabilities of the system, covering into the following topics:
 
 1. [System Requirements](#system-requirements)
-2. [System Architecture](#system-architecture)
-3. [System Design](#system-design)
-4. [Technical](#technical)
-5. [User](#user)
+2. [System Architecture and Design](#architecture-and-design)
+3. [Technical Documentation](#technical-documentation)
+4. [User](#user)
 
 ## System Requirements
 Design and develop a website to allow people to post their service requests and allow service providers to bid on the services. The website is free to both clients and service providers and is not involved with (making or receiving) payments for the services. The key requirements of the website are described below.
@@ -41,11 +40,12 @@ Service providers are registered users who can perform at least the following ta
 | View bid history            | As a service provider, I want to view all of my bids I have placed so that I can keep track of and/or update my bids. |
 | Write a review to a client  | As a service provider, I want to post a comment and rating to a client after I have finished the client's service request so that I can voice my opinion and improve the quality of their work. |
 
-## System Architecture
+### Other notes
+Registered users can function as a client and/or a service provider. In other words, they can manage service requests, bid on a service request, manage bids, and write reviews for both types of users.
 
-## System Design
+## System Architecture and Design
 
-## Technical
+## Technical Features
 
 ## User
 
