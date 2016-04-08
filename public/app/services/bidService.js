@@ -13,6 +13,11 @@ angular.module('bidService', [])
     return $http.get('/api/bids?provider=' + providerID);
   };
 
+  // getBidByReqID(reqID) => gets bid info given a request ID
+  bidFactory.getBidByReqID = function(reqID) {
+    return $http.get('/api/bids?service=' + reqID);
+  };
+
   // postBid = function(serviceID, bid) => posts a bid to a serviceID
   bidFactory.postBid = function(serviceID, bid) {
     return $http.post('/api/bids?service=' + serviceID, bid);

@@ -58,7 +58,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="bid in servReq.bidData">
-          <td class="col-sm-2"><a href="profile/view">{{bid.firstName + ' ' + bid.lastName}}</a></td>
+          <td class="col-sm-2"><a ng-href="/user/view/{{bid.idUser}}">{{bid.firstName + ' ' + bid.lastName}}</a></td>
           <td class="col-sm-1">{{bid.priceType}}</td>
           <td class="col-sm-1">${{bid.priceValue.toFixed(2)}}</td>
           <td class="col-sm-6">{{bid.note}}</td>
@@ -70,7 +70,10 @@
               <i class="glyphicon glyphicon-remove"></i>
             </button>
           </td>
-          <td class="col-sm-2"><span class="label label-success" ng-if="bid.bidStatus === 'Accepted'">Accepted</span></td>
+          <td class="col-sm-2">
+            <span class="label label-success" ng-if="bid.bidStatus === 'Accepted'">Accepted</span>
+            <a ng-href="/review/create/{{servReq.servReqData.idServiceRequest}}?reviewAs=client" class="btn btn-default btn-xs" ng-if="bid.bidStatus === 'Accepted' && servReq.servReqData.clientID === sess.user.id">Review</button>
+          </td>
         </tr>
       </tbody>
     </table>

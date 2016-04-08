@@ -5,7 +5,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <strong>Profile</strong>
-          <a href="/profile/edit" class="btn btn-default btn-sm pull-right">
+          <a ng-href="/profile/edit/{{sess.user.id}}" class="btn btn-default btn-sm pull-right">
             <i class="glyphicon glyphicon-pencil"></i> Update profile
           </a>
         </div>
@@ -67,7 +67,7 @@
           <td ng-if="service.serviceStatus !== 'Open'"><span class="label label-danger">Closed</span></td>
           <td class="text-center">{{dash.offers[$index]}}</td>
           <td>
-            <a ng-href="request/view/{{service.idServiceRequest}}" class="btn btn-primary btn-sm">View</a>
+            <a ng-href="/request/view/{{service.idServiceRequest}}" class="btn btn-primary btn-sm">View</a>
           </td>
         </tr>
       </tbody>
@@ -103,7 +103,7 @@
       <tbody>
         <tr ng-repeat="bid in dash.bids">
           <td><a ng-href="/request/view/{{bid.serviceRequestID}}">{{bid.serviceTitle}}</a></td>
-          <td><a href="/user/view">{{bid.firstName + ' ' + bid.lastName}}</a></td>
+          <td><a ng-href="/user/view/{{bid.idUser}}">{{bid.firstName + ' ' + bid.lastName}}</a></td>
           <td>{{bid.bidDate.substring(0, 10)}}</td>
           <td ng-if="bid.bidStatus === 'Accepted'"><span class="label label-success">{{bid.bidStatus}}</span></td>
           <td ng-if="bid.bidStatus === 'Declined'"><span class="label label-danger">{{bid.bidStatus}}</span></td>
@@ -115,7 +115,8 @@
             <button type="button" class="btn btn-danger btn-sm" ng-click="dash.deleteBid(bid.idBid)">Remove</button>
           </td>
           <td ng-if="bid.bidStatus === 'Accepted'">
-            <a ng-href="/request/view/{{bid.serviceRequestID}}" class="btn btn-default btn-sm">View</a>
+            <a ng-href="/request/view/{{bid.serviceRequestID}}" class="btn btn-secondary btn-sm">View</a>
+            <a ng-href="/review/create/{{bid.serviceRequestID}}?reviewAs=provider" class="btn btn-default btn-sm">Review</a>
           </td>
           <td ng-if="bid.bidStatus === 'Declined'">
             <a ng-href="/request/view/{{bid.serviceRequestID}}" class="btn btn-default btn-sm">View</a>

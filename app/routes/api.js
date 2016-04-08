@@ -85,7 +85,7 @@ module.exports = function(app, express) {
   api.get('/requests/:request_id', (req, res) => {
     pool.getConnection((err, connection) => {
       var requestID = req.params.request_id;
-      var sqlQuery = "SELECT * FROM ServiceRequest WHERE idServiceRequest = ?";
+      var sqlQuery = "SELECT * FROM ServiceRequest LEFT JOIN User ON ServiceRequest.clientID = User.idUser WHERE idServiceRequest = ?";
       connection.query(sqlQuery, [requestID], (err, results) => {
         if (err) throw err;
         connection.release();
@@ -337,11 +337,11 @@ module.exports = function(app, express) {
       } else if (req.query.service) {
         var service = req.query.service;
         pool.getConnection((err, connection) => {
-          var sqlQuery = "SELECT * FROM Bid WHERE serviceRequestID = ?";
+          var sqlQuery = "SELECT * FROM Bid LEFT JOIN User ON Bid.providerID = User.idUser WHERE serviceRequestID = ? AND bidStatus = 'Accepted'";
           connection.query(sqlQuery, [service], (err, result) => {
             if (err) throw err;
             connection.release();
-            res.send(result);
+            res.send(result[0]);
             console.log(result);
           });
         });
@@ -474,13 +474,16 @@ module.exports = function(app, express) {
 
   // POST /reviews => submit a review
   api.post('/reviews', (req, res) => {
-    var reviewer = req.query.reviewer;
-    var reviewee = req.query.reviewee;
+    var reqID = req.body.reqID;
+    var reviewAs = req.body.reviewAs;
+    var reviewer = req.body.reviewer;
+    var reviewee = req.body.reviewee;
     var rating = req.body.rating;
+    var heading = req.body.heading;
     var message = req.body.message;
     var reviewDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
     pool.getConnection((err, connection) => {
-      var post = {reviewerID: reviewer, revieweeID: reviewee, rating: rating, message: message, reviewDate: reviewDate};
+      var post = {serviceRequestID: reqID, reviewAs: reviewAs, reviewerID: reviewer, revieweeID: reviewee, rating: rating, heading: heading, message: message, reviewDate: reviewDate};
       connection.query("INSERT INTO Review SET ?", post, (err, result) => {
         if (err) throw err;
         connection.release();

@@ -1,4 +1,4 @@
-<form id="create-review-form">
+<form id="create-review-form" ng-submit="review.submit()">
   <div class="panel panel-default">
     <div class="panel-heading">
       <strong>Write a Review</strong>
@@ -10,14 +10,14 @@
           <label>
             <strong>Person being reviewed</strong>
           </label>
-          <p>John Doe</p>
+          <p>{{review.firstName + ' ' + review.lastName}}</p>
         </div>
         <!-- What service was involved? -->
         <div class="col-sm-6">
           <label>
             <strong>Service</strong>
           </label>
-          <p>Gardening</p>
+          <p>{{review.service}}</p>
         </div>
       </div>
       <br>
@@ -27,24 +27,14 @@
           <label for="reviewing_as" class="control-label">
             <strong>Reviewing as a</strong>
           </label>
-          <select name="reviewing_as" class="form-control">
-            <option value="1">Client</option>
-            <option value="2">Service Provider</option>
-          </select>
+          <select name="reviewing_as" class="form-control" ng-model="review.selected1" ng-options="option.name for option in review.options1"></select>
         </div>
         <!-- Rating -->
         <div class="form-group col-sm-6">
           <label for="rating" class="control-label">
             <strong>Rating</strong>
           </label>
-          <select name="rating" class="form-control" required>
-            <option value=""></option>
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
+          <select name="rating" class="form-control" ng-model="review.selected2" ng-options="option.name for option in review.options2"></select>
         </div>
       </div>
       <!-- Title -->
@@ -52,14 +42,14 @@
         <label for="title" class="control-label">
           <strong>Heading</strong>
         </label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" ng-model="review.heading" required>
       </div>
       <!-- Comments -->
       <div class="form-group">
         <label for="comments" class="control-label">
           <strong>Comments</strong>
         </label>
-        <textarea name="comments" rows="4" class="form-control" required></textarea>
+        <textarea name="comments" rows="4" class="form-control" ng-model="review.comments" required></textarea>
       </div>
       <!-- Action -->
       <button type="submit" class="btn btn-primary btn-block">Post review</button>
