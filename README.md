@@ -51,14 +51,16 @@ Registered users can function as a client and/or a service provider. In other wo
 - All other data is stored on MySQL.
 
 ## Technical Documentation
-- Node.js has a package manager called Node Package Manager. We have used the following NPM modules in our project:
+
+### Node Package Manager (NPM)
+Node.js has a package manager called Node Package Manager. We have used the following NPM modules in our project:
   1. [bcrypt-nodejs](https://www.npmjs.com/package/bcrypt-nodejs)
   2. [body-parser](https://www.npmjs.com/package/body-parser)
   3. [express](https://www.npmjs.com/package/express)
   4. [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
   5. [mongoose](https://www.npmjs.com/package/mongoose)
-  6. morgan(https://www.npmjs.com/package/morgan)
-  7. mysql(https://www.npmjs.com/package/mysql)
+  6. [morgan](https://www.npmjs.com/package/morgan)
+  7. [mysql](https://www.npmjs.com/package/mysql)
 - Authentication
 - REST APIs created with express
 - angular: views are updated by making HTTP calls to the APIs
