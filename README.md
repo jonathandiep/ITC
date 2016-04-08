@@ -66,14 +66,39 @@ APIs will need its own section
 ## Technical Documentation
 
 ## User Interface
+Each section will provide explanations and illustrations for the feature being described.
 
 ### Home page
 
 ### Sign up page
+Users are uniquely identified using their email address which cannot be changed once the account has been created for that user.
 
 ### Log in page
+Users will log in using their email and password.
 
 ### Dashboard
+When users log in, they will be directed to their dashboard displaying the following features:
+
+- Profile information
+..- Profile picture
+..- First name
+..- Last name
+..- Email
+..- Address
+..- Phone
+
+- User's statistics
+..- Number of Reviews
+..- Overall Rating
+
+- Service Requests
+Each service request have the following information:
+- Name of the service
+- Date in which the service request was created
+- Status of the service request
+..- Open
+..- Closed
+- Number of bids available for that service request
 
 ### Update profile
 
