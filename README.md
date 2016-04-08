@@ -80,25 +80,40 @@ Users will log in using their email and password.
 When users log in, they will be directed to their dashboard displaying the following features:
 
 1. Profile information
-  1.1. Profile picture
-  2. First name
-  3. Last name
-  4. Email
-  5. Address
-  6. Phone
+  - Profile picture
+  - First name
+  - Last name
+  - Email
+  - Address
+  - Phone
 
 2. User's statistics
-  1. Number of Reviews
-  2. Overall Rating
+  - Number of Reviews
+  - Overall Rating
 
 3. Service Requests
-Each service request have the following information:
-- Name of the service
+This panel is used for viewing both current and past service requests. Each service request will have the following information:
+- Service heading
 - Date in which the service request was created
 - Status of the service request
-..- Open
-..- Closed
+  - Open
+  - Closed
 - Number of bids available for that service request
+
+4. Service Bids
+This panel is used for viewing both current and past service bids. Each service bid will have the following information:
+- Service heading
+- Name of the client requesting the service
+- Status of the service request
+  - Pending
+  - Declined
+  - Accepted
+- The price amount placed for the bid on the service request
+- The price rate placed for the bid on the service request
+  - Fixed
+  - Hourly
+  - Needs more information
+-
 
 ### Update profile
 
