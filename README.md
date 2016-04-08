@@ -79,7 +79,7 @@ Users will log in using their email and password.
 ### Dashboard
 When users log in, they will be directed to their dashboard displaying the following features:
 
-- Profile information
+1. Profile information
 ..- Profile picture
 ..- First name
 ..- Last name
@@ -87,11 +87,11 @@ When users log in, they will be directed to their dashboard displaying the follo
 ..- Address
 ..- Phone
 
-- User's statistics
+2. User's statistics
 ..- Number of Reviews
 ..- Overall Rating
 
-- Service Requests
+3. Service Requests
 Each service request have the following information:
 - Name of the service
 - Date in which the service request was created
