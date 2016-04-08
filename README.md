@@ -44,17 +44,21 @@ Registered users can function as a client and/or a service provider. In other wo
 
 ## System Architecture and Design
 ![System Architecture](https://i.imgur.com/BZAavVA.png)
-- Node.js is the web server which works with MongoDB and MySQL
-- MVC in AngularJS
 
 ### Database Design
 ![Database Design](http://i.imgur.com/NwRl1Ns.png)
-- Display DB model
-- Wanted to segregate senstive user info like email and password and used MongoDB to do that
-- All other data is stored on MySQL
+- Wanted to segregate sensitive user info like email and password - stored them in MongoDB.
+- All other data is stored on MySQL.
 
 ## Technical Documentation
-- npm modules used (bcrypt-nodejs, body-parser, express, jsonwebtokens, mongoose, morgan, mysql)
+- NPM modules used:
+..1. bcrypt-nodejs
+..2. body-parser
+..3. express
+..4. jsonwebtokens
+..5. mongoose
+..6. morgan
+..7. mysql
 - Authentication
 - REST APIs created with express
 - angular: views are updated by making HTTP calls to the APIs
