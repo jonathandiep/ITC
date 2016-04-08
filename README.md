@@ -80,8 +80,8 @@ Users will log in using their email and password.
 When users log in, they will be directed to their dashboard displaying the following features:
 
 1. Profile information
-..- Profile picture
-..- First name
+..1. Profile picture
+..2. First name
 ..- Last name
 ..- Email
 ..- Address
