@@ -1,4 +1,27 @@
-# Documentation
+# Software Documentation
+This document explains and illustrates the overview, attributes, capabilities, characteristics, and qualities of this system. The document will be divided into the following topics:
+1. System Requirements
+2. System Architecture
+3. System Design
+4. Technical
+5. User
+
+## System Requirements
+
+## System Architecture
+
+## System Design
+
+## Technical
+
+## User
+
+
+
+
+
+
+
 
 login function uses jsonwebtokens
 - read up on why jwts are better than cookies
