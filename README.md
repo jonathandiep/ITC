@@ -126,6 +126,16 @@ This panel is used for viewing both current and service bids. Each bid will have
   - Hourly
   - Needs more information
 
+### Viewing another user
+Other users can be viewed by clicking on their names in the the service request or service bid on the dashboard page. When viewing a user they will be able to see the following information:
+- Profile picture
+- First name
+- Last name
+- Email address
+- Address (if available)
+- Phone number (if available)
+- List of review
+
 ### Update profile
 The user can update the following information:
 - First name
@@ -147,7 +157,7 @@ The user has two actions available which will take them back to the dashboard on
 - Create new service request
 - Cancel creating the service request
 
-### View of a service request
+### Viewing a service request
 The user can view the following information when they click 'view' on a service request in the 'Service Requests' panel of the dashboard page.
 - Title of the service
 - Request created on
@@ -180,12 +190,32 @@ The user has two actions available which will take them back to the previous pag
 
 ### Bid on a service request
 The user will need to search for an open service request using the search feature provided in the 'Service Bids' panel under the heading. Once they reach the search results and there are open service requests available, the user can view one of the service requests and place a bid on the selected request. From here the user has two actions available:
-- Place bid: Directs the user to the dashboard page
-- Cancel: Directs the user back to the search results page
+- Place bid
+- Cancel
 
 ### Updating a bid on a service request
-The user can update their bids (if the bid is still pending) by navigating to the 'Service Bids' panel on the dashboard page and viewing any pending bid. Afterwards the user can update their bid information. Optionally, they can remove their bid.
+The user can update their bids (if the bid is still pending) by navigating to the 'Service Bids' panel on the dashboard page and viewing any pending bid. Afterwards the user can update their bid information. Optionally, they can remove their bid on the 'Service Bids' panel on the dashboard page.
 
 ### Writing a review to a client
+After the service provider's bid is accepted, they will be able to write a review about their client for the service performed by going back to the accepted bid in the 'Service Bids' panel. They will provide the following information:
+- Rating
+- Title of the review
+- Comments
+
+When writing the review the service provider will know who they are writing a review for and for what service.
+
+The service provider has two actions available:
+- Post review
+- Cancel
 
 ### Writing a review to a service provider
+After the client has accepted a service provider's bid, they will be able to write a review about their service provider for the service performed by going back to the closed service request in the 'Service Requests' panel.
+- Rating
+- Title of the review
+- Comments
+
+When writing the review the service provider will know who they are writing a review for and for what service.
+
+The service provider has two actions available:
+- Post review
+- Cancel
