@@ -1,6 +1,9 @@
 <div id="view-request-panel" class="panel panel-default">
   <div class="panel-heading">
     <strong>Service Offer</strong>
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="search.back()">
+      <i class="glyphicon glyphicon-chevron-left"></i> Back
+    </button>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -44,13 +47,7 @@
         <div class="row">
           <!-- Price Rate -->
           <div class="col-sm-6">
-            <select name="price_type" class="form-control" ng-model="search.selected" ng-options="option.name for option in search.options">
-              <!--
-              <option value="fixed">Fixed</option>
-              <option value="hourly">Hourly</option>
-              <option value="info">Need more info</option>
-              -->
-            </select>
+            <select name="price_type" class="form-control" ng-model="search.selected" ng-options="option.name for option in search.options"></select>
           </div>
           <!-- Price amount -->
           <div class="col-sm-6">

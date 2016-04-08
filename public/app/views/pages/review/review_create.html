@@ -27,7 +27,7 @@
           <label for="reviewing_as" class="control-label">
             <strong>Reviewing as a</strong>
           </label>
-          <select name="reviewing_as" class="form-control" ng-model="review.selected1" ng-options="option.name for option in review.options1"></select>
+          <select name="reviewing_as" class="form-control" ng-model="review.selected1" ng-options="option.name for option in review.options1" disabled="true"></select>
         </div>
         <!-- Rating -->
         <div class="form-group col-sm-6">
@@ -52,7 +52,10 @@
         <textarea name="comments" rows="4" class="form-control" ng-model="review.comments" required></textarea>
       </div>
       <!-- Action -->
-      <button type="submit" class="btn btn-primary btn-block">Post review</button>
+      <div class="pull-right">
+        <button type="submit" class="btn btn-primary">Post Review</button>
+        <a href="/dashboard" class="btn btn-danger">Cancel</a>
+      </div>
     </div>
   </div>
 </form>

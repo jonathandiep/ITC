@@ -4,12 +4,15 @@
       <strong>Browse Requests</strong>
     </div>
     <div class="panel-body">
-      <form class="form-inline" ng-submit="search.search(search.query)">
+      <form class="form-inline" ng-submit="browse.search(browse.query)">
         <div class="form-group">
-          <input type="search" class="form-control" placeholder="Find client requests" ng-model="search.query">
+          <input type="search" class="form-control" placeholder="Find client requests" ng-model="browse.query">
         </div>
         <button type="submit" class="btn btn-primary btn-sm">
           <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="browse.back()">
+          <i class="glyphicon glyphicon-chevron-left"></i> Back
         </button>
       </form>
     </div>

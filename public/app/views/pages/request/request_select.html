@@ -3,8 +3,11 @@
     <!-- Name/Heading -->
     <div class="panel-heading">
       <strong>Service Request</strong>
+      <button type="button" class="btn btn-default btn-sm pull-right" ng-click="servReq.back()">
+        <i class="glyphicon glyphicon-chevron-left"></i> Back
+      </button>
       <span class="pull-right">
-        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-default btn-sm" ng-if="servReq.servReqData.clientID === sess.user.id">
+        <a ng-href="request/edit/{{servReq.servReqData.idServiceRequest}}" class="btn btn-secondary btn-sm" ng-if="servReq.servReqData.clientID === sess.user.id">
           <i class="glyphicon glyphicon-pencil"></i> Edit
         </a>
       </span>

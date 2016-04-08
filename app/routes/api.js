@@ -53,7 +53,10 @@ module.exports = function(app, express) {
 
       });
 
-    res.json({ message: 'User created!' });
+      res.json({ 
+        success: true,
+        message: 'User created!'
+      });
     });
 
   });

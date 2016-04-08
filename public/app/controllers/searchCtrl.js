@@ -32,9 +32,14 @@ angular.module('searchCtrl', [])
   }
 
   vm.display();
+
+  vm.back = function() {
+    $window.history.back();
+  }
+
 })
 
-.controller('searchBidController', function($routeParams, $location, Bid,  Req) {
+.controller('searchBidController', function($routeParams, $location, $window, Bid,  Req) {
   var vm = this;
 
   vm.display = function() {
@@ -75,6 +80,10 @@ angular.module('searchCtrl', [])
       });
   };
 
+  vm.back = function() {
+    $window.history.back();
+  }
+
 })
 
 .controller('browseController', function($location, $window, Req) {
@@ -105,27 +114,7 @@ angular.module('searchCtrl', [])
 
     });
 
-  /*
-  vm.display = function() {
-    var query = $routeParams.query;
-    vm.query = query;
-    Req.search(query)
-      .then(function(data) {
-        console.log(data.data);
-        var results = data.data;
-        vm.searchData = results;
-        var a = new Array();
-        for(let i = 0; i < results.length; i++) {
-          a[i] = null;
-          Req.countReqBids(results[i].idServiceRequest)
-            .then(function(data) {
-              a[i] = data.data.count;
-            });
-        }
-        vm.offers = a;
-      })
-  }
-
-  vm.display();
-  */
+    vm.back = function() {
+      $window.history.back();
+    }
 });

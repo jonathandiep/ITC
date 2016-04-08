@@ -18,7 +18,6 @@ angular.module('userCtrl', ['userService'])
         } else {
           vm.message = data.message;
         }
-        console.log(data.message);
       });
   };
 
