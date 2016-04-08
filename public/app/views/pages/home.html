@@ -3,9 +3,9 @@
     <h1 style="color: white">Consider it done.</h1>
     <p>Find the professionals for every project on your list.</p>
     <br>
-    <form action="search" class="form-inline" method="GET">
+    <form  class="form-inline" ng-submit="home.search(home.query)">
       <div class="form-group">
-        <input type="text" class="form-control" style="min-width: 280px; background-color: white; border-radius: 3px; padding-left: 8px" placeholder="What service do you need?" autocomplete="off" required>
+        <input type="text" class="form-control" style="min-width: 280px; background-color: white; border-radius: 3px; padding-left: 8px" placeholder="What service do you need?" autocomplete="off" ng-model="home.query" required>
       </div>
       <button type="submit" class="btn btn-primary">Find service</button>
     </form>

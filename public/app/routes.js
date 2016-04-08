@@ -3,7 +3,9 @@ angular.module('routes', ['ngRoute'])
 .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/views/pages/home.html'
+      templateUrl: 'app/views/pages/home.html',
+      controller: 'homeController',
+      controllerAs: 'home'
     })
     // Authentication
     .when('/login', {

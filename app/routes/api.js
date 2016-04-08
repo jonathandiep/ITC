@@ -58,6 +58,15 @@ module.exports = function(app, express) {
 
   });
 
+  // used to get a user (GET /api/users/:user_id)
+  api.get('/users/:user_id', (req, res) => {
+    User.findById(req.params.user_id, (err, user) => {
+      if (err) res.send(err);
+
+      res.json(user);
+    });
+  })
+
   api.get('/profile/:userID', (req, res) => {
     var id = req.params.userID;
     pool.getConnection((err, connection) => {
@@ -116,6 +125,20 @@ module.exports = function(app, express) {
         if (err) throw err;
         connection.release();
         res.send(results);
+      });
+    });
+  });
+
+  api.get('/requests/count/:request_id', (req, res) => {
+    var id = req.params.request_id;
+    pool.getConnection((err, connection) => {
+      var sqlQuery = "SELECT COUNT(*) AS C FROM Bid WHERE serviceRequestID = ?";
+      connection.query(sqlQuery, [id], (err, result) => {
+        if (err) throw err;
+        connection.release();
+        res.json({
+          count: result[0]["C"]
+        });
       });
     });
   });
@@ -311,19 +334,7 @@ module.exports = function(app, express) {
       });
     });
 
-  api.get('/requests/count/:request_id', (req, res) => {
-    var id = req.params.request_id;
-    pool.getConnection((err, connection) => {
-      var sqlQuery = "SELECT COUNT(*) AS C FROM Bid WHERE serviceRequestID = ?";
-      connection.query(sqlQuery, [id], (err, result) => {
-        if (err) throw err;
-        connection.release();
-        res.json({
-          count: result[0]["C"]
-        });
-      });
-    });
-  });
+
 
   // API for bids/quotes
   // DB table: Bid
@@ -567,14 +578,7 @@ module.exports = function(app, express) {
   // routes that end in /api/users/:user_id
   api.route('/users/:user_id')
 
-    // used to get a user (GET /api/users/:user_id)
-    .get((req, res) => {
-      User.findById(req.params.user_id, (err, user) => {
-        if (err) res.send(err);
 
-        res.json(user);
-      });
-    })
 
     // used to update a user (PUT /api/users/:user_id)
     .put((req, res) => {

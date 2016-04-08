@@ -27,6 +27,7 @@ angular.module('sessionCtrl', [])
           $location.path('/dashboard');
         } else {
           vm.error = data.message;
+          console.log(vm.error);
         }
       });
   };
@@ -37,4 +38,16 @@ angular.module('sessionCtrl', [])
     $location.path('/login');
   };
 
+})
+
+.controller('homeController', function($location, $window) {
+  var vm = this;
+  
+  vm.search = function(query) {
+    if (query) {
+      $location.path('/request/search/' + query);
+    } else {
+      $window.alert('Cannot submit an empty search!');
+    }
+  }
 });
