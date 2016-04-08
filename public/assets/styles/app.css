@@ -16,6 +16,10 @@ textarea {
   resize: vertical;
 }
 
+.navbar {
+  margin-bottom: 0;
+}
+
 .panel-heading {
   padding-top: 10px;
   padding-bottom: 15px;
@@ -25,31 +29,53 @@ textarea {
   color: orange;
 }
 
+
+
+/**
+ * Dashboard
+ */
+#dashboard {
+  padding-top: 25px;
+}
+
+
+
 /**
  * Forms
  */
 #signup-form {
   max-width: 360px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
 #login-form {
   max-width: 360px;
+  padding-top: 25px;
+  margin: 0 auto;
+}
+
+#update-profile-form {
+  max-width: 480px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
 #create-request-form {
   max-width: 480px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
 #update-request-form {
   max-width: 480px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
 #create-review-form {
   max-width: 480px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
@@ -58,12 +84,18 @@ textarea {
 /**
  * Panels
  */
+#search-requests-panel {
+  padding-top: 25px;
+}
+
 #view-request-panel {
   max-width: 640px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 
 #view-user-panel {
   max-width: 480px;
+  padding-top: 25px;
   margin: 0 auto;
 }
