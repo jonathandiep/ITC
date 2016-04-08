@@ -47,11 +47,13 @@
         </label>
         <!-- Rating and date -->
         <br>
-        {{review.rating}}
-        <label class="rating">
-          <i class="glyphicon glyphicon-star"></i>
+        <label>
+          Rating: {{review.rating}}
         </label>
-        <span>{{review.date.substring(0, 10)}}</span>
+        <br>
+        <label>
+          <span>{{review.date.substring(0, 10)}}</span>
+        </label>
         <br>
         <label ng-if="review.reviewAs === 'Client'">
           <strong>Service Requested</strong>
