@@ -72,7 +72,7 @@ The back-end consists of REST APIs that allow HTTP methods to GET, POST, PUT, an
 Because we have set up a REST API back-end, we need something on the front-end to make HTTP requests. This particular project utilizes Angular, which makes calling HTTP request easy as it will automatically update data with its two-way binding. Angular allows the project to be built like a Single Page Application (SPA) by providing front-end routing.
 
 ## User Interface
-This section briefly explains the
+This section briefly explains the user interface for the web application.
 
 ### Home page
 Users navigate to the sign up page and login page. Users can also search for available service requests through the search bar found below the navigation bar in the main content area. Optionally, they can click on the 'or browse services' button to view all service requests. Below the search feature talks briefly about what the web application has to offer to potential customers. At the end of the page, there is a footer displaying dummy links to give the home page a similar look and feel as other web services and e-commerce websites.
